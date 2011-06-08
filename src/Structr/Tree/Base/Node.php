@@ -1,9 +1,13 @@
 <?php
 
-namespace Structr\Tree;
+namespace Structr\Tree\Base;
 
 abstract class Node {
 	private $parent = null;
+
+	public function __construct($parent) {
+		$this->setParent($parent);
+	}
 
 	public function parent() {
 		return $this->parent;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Structr\Tree;
+namespace Structr\Tree\Base;
 
 abstract class ScalarNode extends Node {
 	protected $coerce = false;

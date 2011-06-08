@@ -68,8 +68,6 @@ class ScalarTest extends \PHPUnit_Framework_TestCase {
 		$variable = "The quick brown fox jumps over the lazy dog";
 
 		$this->assertSame(Structr::ize($variable)->isString()->run(), $variable, "string == string");
-
-		$this->assertSame(Structr::ize($variable)->isString()->regexp("/^The [\w\s]+$/")->run(), $variable, "string (regexpmatch) == string");
 	}
 
 	public function testStringFail() {
@@ -80,11 +78,17 @@ class ScalarTest extends \PHPUnit_Framework_TestCase {
 		Structr::ize($not_a_string)->isString()->run();
 	}
 
+	public function testStringRegexp() {
+		$variable = "The quick brown fox jumps over the lazy dog";
+
+		$this->assertSame(Structr::ize($variable)->isString()->regexp("/^The [\w\s]+$/")->run(), $variable, "string (regexpmatch) == string");
+	}
+
 	public function testStringRegexpFail() {
 		$this->setExpectedException('\\Structr\\Exceptions\\NoRegexpMatchException');
 
-		$not_a_string = "12345AB";
+		$string = "12345AB";
 
-		Structr::ize($not_a_string)->isString()->regexp("/^\d{4}\w{2}$/")->run();
+		Structr::ize($string)->isString()->regexp("/^\d{4}\w{2}$/")->run();
 	}
 }

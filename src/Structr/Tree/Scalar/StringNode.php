@@ -1,13 +1,11 @@
 <?php
 
-namespace Structr\Tree;
+namespace Structr\Tree\Scalar;
+
+use Structr\Tree\Base\ScalarNode;
 
 class StringNode extends ScalarNode {
 	protected $regexp = null;
-
-	public function __construct($parent) {
-		$this->setParent($parent);
-	}
 
 	public function getScalarType() {
 		return "string";
