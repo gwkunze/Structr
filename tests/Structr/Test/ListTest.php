@@ -11,7 +11,7 @@ class ListTest extends \PHPUnit_Framework_TestCase {
 
 		$result = Structr::ize($array)
 			->isList()
-			->beginPrototype()
+			->listPrototype()
 				->isInteger()->end()
 			->endPrototype()
 			->run()
@@ -25,7 +25,7 @@ class ListTest extends \PHPUnit_Framework_TestCase {
 
 		$result = Structr::ize($array)
 			->isList()
-			->beginPrototype()
+			->listPrototype()
 				->isBoolean()->coerce()->end()
 			->endPrototype()
 			->run();
@@ -35,7 +35,7 @@ class ListTest extends \PHPUnit_Framework_TestCase {
 
 		$result = Structr::ize($array)
 			->isList()
-			->beginPrototype()
+			->listPrototype()
 				->isInteger()->coerce()->end()
 			->endPrototype()
 			->run();
@@ -45,7 +45,7 @@ class ListTest extends \PHPUnit_Framework_TestCase {
 
 		$result = Structr::ize($array)
 			->isList()
-			->beginPrototype()
+			->listPrototype()
 				->isString()->coerce()->end()
 			->endPrototype()
 			->run();
@@ -65,7 +65,7 @@ class ListTest extends \PHPUnit_Framework_TestCase {
 
 		Structr::ize(1)
 			->isList()
-			->beginPrototype()
+			->listPrototype()
 				->isInteger()->end()
 			->endPrototype()
 			->run();
@@ -77,7 +77,7 @@ class ListTest extends \PHPUnit_Framework_TestCase {
 
 		Structr::ize(array(1, "aa" => 2, 3))
 			->isList()
-			->beginPrototype()
+			->listPrototype()
 				->isInteger()->end()
 			->endPrototype()
 			->run();
@@ -90,7 +90,7 @@ class ListTest extends \PHPUnit_Framework_TestCase {
 		$result = Structr::ize($array)
 			->isList()
 			->minSize(2)
-			->beginPrototype()
+			->listPrototype()
 				->isInteger()->end()
 			->endPrototype()
 			->run()
@@ -107,7 +107,7 @@ class ListTest extends \PHPUnit_Framework_TestCase {
 		Structr::ize($array)
 			->isList()
 			->minSize(3)
-			->beginPrototype()
+			->listPrototype()
 				->isInteger()->end()
 			->endPrototype()
 			->run()
@@ -120,7 +120,7 @@ class ListTest extends \PHPUnit_Framework_TestCase {
 		$result = Structr::ize($array)
 			->isList()
 			->maxSize(2)
-			->beginPrototype()
+			->listPrototype()
 				->isInteger()->end()
 			->endPrototype()
 			->run()
@@ -137,7 +137,7 @@ class ListTest extends \PHPUnit_Framework_TestCase {
 		Structr::ize($array)
 			->isList()
 			->maxSize(1)
-			->beginPrototype()
+			->listPrototype()
 				->isInteger()->end()
 			->endPrototype()
 			->run()

@@ -10,6 +10,7 @@ use Structr\Tree\Scalar\StringNode;
 
 use Structr\Tree\Composite\ListNode;
 use Structr\Tree\Composite\MapNode;
+use Structr\Tree\Composite\ChoiceNode;
 
 abstract class PrototypeNode extends Node {
 	/** @var \Structr\Tree\Base\Node Child node declaring type */
@@ -85,8 +86,17 @@ abstract class PrototypeNode extends Node {
 		return $this->prototype;
 	}
 
+	/**
+	 * @return \Structr\Tree\Composite\ChoiceNode
+	 */
+	public function isChoice() {
+		$this->prototype = new ChoiceNode($this);
+
+		return $this->prototype;
+	}
+
 	public function end() {
-		return $this;
+		return $this->parent();
 	}
 
 	public function value($parentValue = null) {
