@@ -2,7 +2,7 @@
 
 namespace Structr\Tree\Base;
 
-use Structr\Exceptions\InvalidTypeException;
+use Structr\Exception;
 
 abstract class ScalarNode extends Node {
 	protected $coerce = false;
@@ -21,7 +21,7 @@ abstract class ScalarNode extends Node {
 		}
 
 		if($this->coerce_strict || !@settype($value, $this->getScalarType()))
-			throw new \Structr\Exceptions\CannotCoerceException("Can't coerce '$type' to '" . $this->getScalarType() ."'");
+			throw new Exception("Can't coerce '$type' to '" . $this->getScalarType() ."'");
 
 		return $value;
 	}
@@ -43,7 +43,7 @@ abstract class ScalarNode extends Node {
 			return $value;
 		}
 
-		throw new InvalidTypeException("Invalid type for '" . gettype($value) . "', expecting " . $this->getScalarType());
+		throw new Exception("Invalid type for '" . gettype($value) . "', expecting " . $this->getScalarType());
 	}
 
 }

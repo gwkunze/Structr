@@ -4,10 +4,7 @@ namespace Structr\Tree\Composite;
 
 use Structr\Tree\Base\Node;
 
-use Structr\Exceptions\PrototypeUndefinedException;
-use Structr\Exceptions\InvalidTypeException;
-use Structr\Exceptions\ListTooSmallException;
-use Structr\Exceptions\ListTooLargeException;
+use Structr\Exception;
 
 class ListNode extends Node {
 	/** @var ListPrototypeNode */
@@ -38,11 +35,11 @@ class ListNode extends Node {
 		$value = $parentValue;
 
 		if($this->listPrototype === null) {
-			throw new PrototypeUndefinedException("List without prototype");
+			throw new Exception("List without prototype");
 		}
 
 		if(!is_array($value)) {
-			throw new InvalidTypeException("Invalid type '" . gettype($value) . "', expecting 'list' (numerical array)");
+			throw new Exception("Invalid type '" . gettype($value) . "', expecting 'list' (numerical array)");
 		}
 
 		$return = array();
@@ -51,17 +48,17 @@ class ListNode extends Node {
 
 		if($this->minimumSize !== null) {
 			if($length < $this->minimumSize)
-				throw new ListTooSmallException("List smaller than minimum size");
+				throw new Exception("List smaller than minimum size");
 		}
 
 		if($this->maximumSize !== null) {
 			if($length > $this->maximumSize)
-				throw new ListTooLargeException("List larger then maximum size");
+				throw new Exception("List larger then maximum size");
 		}
 
 		for($i = 0;$i < $length;$i++) {
 			if(!isset($value[$i]))
-				throw new InvalidTypeException("Invalid list, missing index '$i'. Might be a map.");
+				throw new Exception("Invalid list, missing index '$i'. Might be a map.");
 			$return[] = $this->listPrototype->value($value[$i]);
 		}
 		return $return;

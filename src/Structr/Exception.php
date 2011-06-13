@@ -1,5 +1,5 @@
 <?php
 
-namespace Structr\Exceptions;
+namespace Structr;
 
 class Exception extends \Exception {}

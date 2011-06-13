@@ -4,7 +4,7 @@ namespace Structr\Tree\Composite;
 
 use Structr\Tree\Base\Node;
 
-use Structr\Exceptions\MissingKeyException;
+use Structr\Exception;
 
 class MapKeyNode extends Node {
 
@@ -50,7 +50,7 @@ class MapKeyNode extends Node {
 
 	public function valueUnset() {
 		if($this->required) {
-			throw new MissingKeyException("Missing key '" . $this->name . "'");
+			throw new Exception("Missing key '" . $this->name . "'");
 		}
 
 		return $this->defaultValue;

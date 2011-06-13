@@ -4,8 +4,7 @@ namespace Structr\Tree\Composite;
 
 use Structr\Tree\Base\Node;
 
-use Structr\Exceptions\InvalidTypeException;
-use Structr\Exceptions\UnexpectedKeyException;
+use Structr\Exception;
 
 class MapNode extends Node {
 	private $keys = array();
@@ -32,7 +31,7 @@ class MapNode extends Node {
 		$value = $parentValue;
 
 		if(!is_array($value)) {
-			throw new InvalidTypeException("Invalid type '" . gettype($value) . "', expecting 'map' (associative array)");
+			throw new Exception("Invalid type '" . gettype($value) . "', expecting 'map' (associative array)");
 		}
 
 		$return = array();
@@ -49,7 +48,7 @@ class MapNode extends Node {
 		}
 
 		if($this->strict && count($value)) {
-			throw new UnexpectedKeyException("Unexpected key(s) " . implode(', ', array_keys($value)));
+			throw new Exception("Unexpected key(s) " . implode(', ', array_keys($value)));
 		}
 		return $return;
 	}

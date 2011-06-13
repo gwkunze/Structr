@@ -4,6 +4,8 @@ namespace Structr\Tree\Scalar;
 
 use Structr\Tree\Base\ScalarNode;
 
+use Structr\Exception;
+
 class StringNode extends ScalarNode {
 	protected $regexp = null;
 
@@ -23,7 +25,7 @@ class StringNode extends ScalarNode {
 		}
 
 		if($strict) {
-			throw new \Structr\Exceptions\CannotCoerceException("Cannot coerce an object to a string in strict mode");
+			throw new Exception("Cannot coerce an object to a string in strict mode");
 		}
 
 		return "Object";
@@ -33,7 +35,7 @@ class StringNode extends ScalarNode {
 		$value = parent::value($parentValue);
 
 		if($this->regexp !== null && !preg_match($this->regexp, $value)) {
-			throw new \Structr\Exceptions\NoRegexpMatchException("String did not match regular expression");
+			throw new Exception("String did not match regular expression");
 		}
 
 		return $value;

@@ -38,7 +38,7 @@ class MapTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testSimpleMapFail() {
-		$this->setExpectedException("\\Structr\\Exceptions\\MissingKeyException");
+		$this->setExpectedException("\\Structr\\Exception");
 
 		$array = array(
 			"id" => 135,
@@ -90,7 +90,7 @@ class MapTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testStrictMapFail() {
-		$this->setExpectedException("\\Structr\\Exceptions\\UnexpectedKeyException");
+		$this->setExpectedException("\\Structr\\Exception");
 
 		$array = array(
 			"id" => 12,

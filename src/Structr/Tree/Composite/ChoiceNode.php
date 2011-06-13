@@ -5,8 +5,7 @@ namespace Structr\Tree\Composite;
 use Structr\Tree\Base\Node;
 
 use Structr\Tree\Composite\ChoicePrototypeNode;
-use Structr\Exceptions\InvalidTypeException;
-use Structr\Exceptions\Exception;
+use Structr\Exception;
 
 class ChoiceNode extends Node {
 	private $alternatives = array();
@@ -29,6 +28,6 @@ class ChoiceNode extends Node {
 			}
 		}
 
-		throw new InvalidTypeException("No alternative matching type '" . gettype($value) . "'");
+		throw new Exception("No alternative matching type '" . gettype($value) . "'");
 	}
 }

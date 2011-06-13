@@ -15,7 +15,7 @@ class ScalarTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testNullFail() {
-		$this->setExpectedException('\\Structr\\Exceptions\\InvalidTypeException');
+		$this->setExpectedException('\\Structr\\Exception');
 
 		$not_null = "foo";
 
@@ -29,7 +29,7 @@ class ScalarTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testIntegerFail() {
-		$this->setExpectedException('\\Structr\\Exceptions\\InvalidTypeException');
+		$this->setExpectedException('\\Structr\\Exception');
 
 		$not_an_integer = 3.1415926;
 
@@ -43,7 +43,7 @@ class ScalarTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testFloatFail() {
-		$this->setExpectedException('\\Structr\\Exceptions\\InvalidTypeException');
+		$this->setExpectedException('\\Structr\\Exception');
 
 		$not_a_float = true;
 
@@ -57,7 +57,7 @@ class ScalarTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testBooleanFail() {
-		$this->setExpectedException('\\Structr\\Exceptions\\InvalidTypeException');
+		$this->setExpectedException('\\Structr\\Exception');
 
 		$not_a_boolean = null;
 
@@ -71,7 +71,7 @@ class ScalarTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testStringFail() {
-		$this->setExpectedException('\\Structr\\Exceptions\\InvalidTypeException');
+		$this->setExpectedException('\\Structr\\Exception');
 
 		$not_a_string = 3;
 
@@ -85,7 +85,7 @@ class ScalarTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testStringRegexpFail() {
-		$this->setExpectedException('\\Structr\\Exceptions\\NoRegexpMatchException');
+		$this->setExpectedException('\\Structr\\Exception');
 
 		$string = "12345AB";
 

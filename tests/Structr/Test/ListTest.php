@@ -55,13 +55,13 @@ class ListTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testNoPrototypeFail() {
-		$this->setExpectedException('\\Structr\\Exceptions\\PrototypeUndefinedException');
+		$this->setExpectedException('\\Structr\\Exception');
 
 		Structr::ize(array())->isList()->run();
 	}
 
 	public function testInvalidTypeList() {
-		$this->setExpectedException('\\Structr\\Exceptions\\InvalidTypeException');
+		$this->setExpectedException('\\Structr\\Exception');
 
 		Structr::ize(1)
 			->isList()
@@ -73,7 +73,7 @@ class ListTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testMapContentsInListDefinition() {
-		$this->setExpectedException('\\Structr\\Exceptions\\InvalidTypeException');
+		$this->setExpectedException('\\Structr\\Exception');
 
 		Structr::ize(array(1, "aa" => 2, 3))
 			->isList()
@@ -100,7 +100,7 @@ class ListTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testMinimumSizeFail() {
-		$this->setExpectedException('\\Structr\\Exceptions\\ListTooSmallException');
+		$this->setExpectedException('\\Structr\\Exception');
 
 		$array = array(1, 2);
 
@@ -130,7 +130,7 @@ class ListTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testMaximumSizeFail() {
-		$this->setExpectedException('\\Structr\\Exceptions\\ListTooLargeException');
+		$this->setExpectedException('\\Structr\\Exception');
 
 		$array = array(1, 2);
 
