@@ -60,7 +60,7 @@ class Structr {
 					return preg_quote($match["other"], "/");
 				}
 			}, $searchString);
-		$regexp = "/" . $regexp . "/";
+		$regexp = "/^" . $regexp . "$/";
 		
 		$return = array();
 
