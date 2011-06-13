@@ -4,6 +4,7 @@ namespace Structr\Tree\Base;
 
 abstract class Node {
 	private $parent = null;
+	private $post = null;
 
 	public function __construct($parent) {
 		$this->setParent($parent);
@@ -15,6 +16,12 @@ abstract class Node {
 
 	public function setParent(Node $parent) {
 		$this->parent = $parent;
+	}
+
+	public function post($function) {
+		$this->post = $function;
+
+		return $this;
 	}
 
 	public function root() {
@@ -46,6 +53,11 @@ abstract class Node {
 	}
 
 	protected function _walk_post($value) {
+
+		if($this->post !== null) {
+			$value = call_user_func($this->post, $value);
+		}
+
 		return $value;
 	}
 
