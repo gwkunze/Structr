@@ -2,6 +2,8 @@
 
 namespace Structr\Tree\Base;
 
+use Structr\Structr;
+
 use Structr\Tree\Scalar\IntegerNode;
 use Structr\Tree\Scalar\FloatNode;
 use Structr\Tree\Scalar\BooleanNode;
@@ -12,12 +14,14 @@ use Structr\Tree\Composite\ListNode;
 use Structr\Tree\Composite\MapNode;
 use Structr\Tree\Composite\ChoiceNode;
 
+use Structr\Tree\DefinitionNode;
+
 abstract class PrototypeNode extends Node {
 	/** @var \Structr\Tree\Base\Node Child node declaring type */
 	private $prototype = null;
 
 	/**
-	 * @return Node
+	 * @return \Structr\Tree\Base\Node
 	 */
 	protected function getPrototype() {
 		return $this->prototype;
@@ -91,6 +95,37 @@ abstract class PrototypeNode extends Node {
 	 */
 	public function isChoice() {
 		$this->prototype = new ChoiceNode($this);
+
+		return $this->prototype;
+	}
+
+	/**
+	 * @param $definition string
+	 * @return \Structr\Tree\DefinitionNode
+	 */
+	public function is($definition) {
+		if(is_object($definition)) {
+			$this->prototype = $definition;
+		} else {
+			$this->prototype = clone Structr::getDefinition($definition);
+		}
+
+		$this->prototype->setParent($this);
+
+		return $this->prototype;
+	}
+
+	public function isOneOf($searchString) {
+		$definitions = Structr::getDefinitions($searchString);
+
+		/** @var $prototype \Structr\Tree\Composite\ChoiceNode */
+		$this->prototype = new ChoiceNode($this);
+
+		foreach($definitions as $definition) {
+			$alt = clone $definition;
+			$alt->setParent($this->prototype);
+			$this->prototype->addAlternative($alt);
+		}
 
 		return $this->prototype;
 	}

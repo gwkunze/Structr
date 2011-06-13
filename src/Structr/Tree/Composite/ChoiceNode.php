@@ -10,6 +10,10 @@ use Structr\Exception;
 class ChoiceNode extends Node {
 	private $alternatives = array();
 
+	public function addAlternative($alternative) {
+		$this->alternatives[] = $alternative;
+	}
+
 	public function altPrototype() {
 		$prototype = new ChoicePrototypeNode($this);
 
