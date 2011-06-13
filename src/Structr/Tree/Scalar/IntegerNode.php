@@ -2,9 +2,9 @@
 
 namespace Structr\Tree\Scalar;
 
-use Structr\Tree\Base\ScalarNode;
+use Structr\Tree\Base\NumberNode;
 
-class IntegerNode extends ScalarNode {
+class IntegerNode extends NumberNode {
 
 	public function getScalarType() {
 		return "integer";
