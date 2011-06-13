@@ -31,8 +31,8 @@ class ListNode extends Node {
 		return $this;
 	}
 
-	public function value($parentValue = null) {
-		$value = $parentValue;
+	public function _walk_value($value = null) {
+		$value = parent::_walk_value($value);
 
 		if($this->listPrototype === null) {
 			throw new Exception("List without prototype");
@@ -58,8 +58,8 @@ class ListNode extends Node {
 
 		for($i = 0;$i < $length;$i++) {
 			if(!isset($value[$i]))
-				throw new Exception("Invalid list, missing index '$i'. Might be a map.");
-			$return[] = $this->listPrototype->value($value[$i]);
+				throw new Exception("Invalid list, missing index '{$i}'. Might be a map.");
+			$return[] = $this->listPrototype->_walk_post($this->listPrototype->_walk_value($value[$i]));
 		}
 		return $return;
 	}

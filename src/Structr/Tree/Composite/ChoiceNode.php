@@ -22,16 +22,17 @@ class ChoiceNode extends Node {
 		return $prototype;
 	}
 
-	public function value($parentValue = null) {
-		$value = $parentValue;
+	public function _walk_value($value) {
+		$value = parent::_walk_value($value);
 
 		foreach($this->alternatives as $alternative) {
 			try {
-				return $alternative->value($value);
+				return $alternative->_walk_post($alternative->_walk_value($value));
 			} catch(Exception $e) {
 			}
 		}
 
 		throw new Exception("No alternative matching type '" . gettype($value) . "'");
 	}
+
 }

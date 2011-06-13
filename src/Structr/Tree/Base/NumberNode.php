@@ -56,8 +56,8 @@ abstract class NumberNode extends ScalarNode {
 		return $this;
 	}
 
-	public function value($parentValue = null) {
-		$value = parent::value($parentValue);
+	public function _walk_value($value) {
+		$value = parent::_walk_value($value);
 
 		if($this->has_gte) {
 			if($value < $this->compare_gte && !$this->clamp_gte)
@@ -74,7 +74,6 @@ abstract class NumberNode extends ScalarNode {
 			throw new Exception("Value '{$value}' lower than allowed ({$this->compare_gt})");
 		if($this->has_lt && $value >= $this->compare_lt)
 			throw new Exception("Value '{$value}' higher than allowed ({$this->compare_lt})");
-
 
 		return $value;
 	}

@@ -11,11 +11,11 @@ class IntegerTest extends \PHPUnit_Framework_TestCase {
 
 		$expected = $value;
 
-		$this->assertSame($expected, Structr::ize($value)->isInteger()->gt(2)->end()->value());
-		$this->assertSame($expected, Structr::ize($value)->isInteger()->gte(3)->end()->value());
+		$this->assertSame($expected, Structr::ize($value)->isInteger()->gt(2)->end()->run());
+		$this->assertSame($expected, Structr::ize($value)->isInteger()->gte(3)->end()->run());
 
-		$this->assertSame($expected, Structr::ize($value)->isInteger()->lt(4)->end()->value());
-		$this->assertSame($expected, Structr::ize($value)->isInteger()->lte(3)->end()->value());
+		$this->assertSame($expected, Structr::ize($value)->isInteger()->lt(4)->end()->run());
+		$this->assertSame($expected, Structr::ize($value)->isInteger()->lte(3)->end()->run());
 	}
 
 	public function testClamp() {
@@ -58,7 +58,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase {
 					->endPrototype()
 				->endKey()
 			->end()
-			->value()
+			->run()
 		;
 
 		$this->assertSame($expected, $result);

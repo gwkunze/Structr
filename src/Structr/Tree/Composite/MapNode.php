@@ -27,8 +27,8 @@ class MapNode extends Node {
 		return $this;
 	}
 
-	public function value($parentValue = null) {
-		$value = $parentValue;
+	public function _walk_value($value) {
+		$value = parent::_walk_value($value);
 
 		if(!is_array($value)) {
 			throw new Exception("Invalid type '" . gettype($value) . "', expecting 'map' (associative array)");
@@ -38,9 +38,9 @@ class MapNode extends Node {
 
 		foreach($this->keys as $key => $val) {
 			if(isset($value[$key])) {
-				$return[$key] = $val->value($value[$key]);
+				$return[$key] = $val->_walk_post($val->_walk_value($value[$key]));
 			} else {
-				$return[$key] = $val->valueUnset();
+				$return[$key] = $val->_walk_post($val->_walk_value_unset());
 			}
 			if($this->strict) {
 				unset($value[$key]);
@@ -52,4 +52,5 @@ class MapNode extends Node {
 		}
 		return $return;
 	}
+
 }

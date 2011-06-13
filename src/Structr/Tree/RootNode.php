@@ -10,12 +10,7 @@ class RootNode extends Base\PrototypeNode {
 		$this->value = $value;
 	}
 
-	public function value($parentValue = null) {
-		if($this->getPrototype() == null) {
-			return $this->value;
-		}
-
-		return $this->getPrototype()->value($this->value);
+	public function getValue() {
+		return $this->value;
 	}
-
 }

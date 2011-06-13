@@ -30,9 +30,26 @@ abstract class Node {
 	}
 
 	public function run() {
-		return $this->root()->value();
+		if($this->parent !== null) {
+			return $this->root()->run();
+		}
+
+		$value = $this->getValue();
+
+		$return = $this->_walk_value($value);
+
+		return $this->_walk_post($return);
 	}
 
-	public abstract function value($parentValue = null);
+	protected function _walk_value($value) {
+		return $value;
+	}
 
+	protected function _walk_post($value) {
+		return $value;
+	}
+
+	protected function getValue() {
+		return null;
+	}
 }

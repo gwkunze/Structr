@@ -11,11 +11,11 @@ class FloatTest extends \PHPUnit_Framework_TestCase {
 
 		$expected = $value;
 
-		$this->assertSame($expected, Structr::ize($value)->isFloat()->gt(2.1)->end()->value());
-		$this->assertSame($expected, Structr::ize($value)->isFloat()->gte(2.14)->end()->value());
+		$this->assertSame($expected, Structr::ize($value)->isFloat()->gt(2.1)->end()->run());
+		$this->assertSame($expected, Structr::ize($value)->isFloat()->gte(2.14)->end()->run());
 
-		$this->assertSame($expected, Structr::ize($value)->isFloat()->lt(4)->end()->value());
-		$this->assertSame($expected, Structr::ize($value)->isFloat()->lte(2.14)->end()->value());
+		$this->assertSame($expected, Structr::ize($value)->isFloat()->lt(4)->end()->run());
+		$this->assertSame($expected, Structr::ize($value)->isFloat()->lte(2.14)->end()->run());
 	}
 
 	public function testClamp() {
@@ -58,7 +58,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase {
 					->endPrototype()
 				->endKey()
 			->end()
-			->value()
+			->run()
 		;
 
 		$this->assertSame($expected, $result);

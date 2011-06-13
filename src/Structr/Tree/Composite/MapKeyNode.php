@@ -44,16 +44,16 @@ class MapKeyNode extends Node {
 		return $this->parent();
 	}
 
-	public function value($parentValue = null) {
-		return $this->keyPrototype->value($parentValue);
+	public function _walk_value($value) {
+		$value = parent::_walk_value($value);
+		return $this->keyPrototype->_walk_post($this->keyPrototype->_walk_value($value));
 	}
 
-	public function valueUnset() {
+	public function _walk_value_unset() {
 		if($this->required) {
-			throw new Exception("Missing key '" . $this->name . "'");
+			throw new Exception("Missing key '{$this->name}'");
 		}
 
 		return $this->defaultValue;
 	}
-
 }

@@ -40,8 +40,8 @@ class StringNode extends ScalarNode {
 		return "Object";
 	}
 
-	public function value($parentValue = null) {
-		$value = parent::value($parentValue);
+	public function _walk_value($value = null) {
+		$value = parent::_walk_value($value);
 
 		if($this->regexp !== null && !preg_match($this->regexp, $value)) {
 			throw new Exception("String did not match regular expression");

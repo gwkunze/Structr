@@ -35,8 +35,8 @@ abstract class ScalarNode extends Node {
 		return $this;
 	}
 
-	public function value($parentValue = null) {
-		$value = $parentValue;
+	protected function _walk_value($value) {
+		$value = parent::_walk_value($value);
 
 		$value = $this->coerceValue($value);
 		if(gettype($value) == $this->getScalarType()) {
@@ -45,5 +45,4 @@ abstract class ScalarNode extends Node {
 
 		throw new Exception("Invalid type for '" . gettype($value) . "', expecting " . $this->getScalarType());
 	}
-
 }

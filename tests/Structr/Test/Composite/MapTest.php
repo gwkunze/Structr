@@ -1,6 +1,6 @@
 <?php
 
-namespace Structr\Test;
+namespace Structr\Test\Composite;
 
 use Structr\Structr;
 
