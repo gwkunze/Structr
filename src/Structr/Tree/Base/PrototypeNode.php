@@ -9,6 +9,7 @@ use Structr\Tree\Scalar\NullNode;
 use Structr\Tree\Scalar\StringNode;
 
 use Structr\Tree\Composite\ListNode;
+use Structr\Tree\Composite\MapNode;
 
 abstract class PrototypeNode extends Node {
 	/** @var \Structr\Tree\Base\Node Child node declaring type */
@@ -71,6 +72,15 @@ abstract class PrototypeNode extends Node {
 	 */
 	public function isList() {
 		$this->prototype = new ListNode($this);
+
+		return $this->prototype;
+	}
+
+	/**
+	 * @return \Structr\Tree\Composite\MapNode
+	 */
+	public function isMap() {
+		$this->prototype = new MapNode($this);
 
 		return $this->prototype;
 	}
