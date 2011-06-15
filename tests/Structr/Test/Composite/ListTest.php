@@ -12,9 +12,9 @@ class ListTest extends \PHPUnit_Framework_TestCase
 
         $result = Structr::ize($array)
             ->isList()
-            ->listPrototype()
+            ->item()
                 ->isInteger()->end()
-            ->endPrototype()
+            ->endItem()
             ->run();
 
         $this->assertSame($array, $result);
@@ -25,27 +25,27 @@ class ListTest extends \PHPUnit_Framework_TestCase
 
         $result = Structr::ize($array)
             ->isList()
-            ->listPrototype()
+            ->item()
                 ->isBoolean()->coerce()->end()
-            ->endPrototype()
+            ->endItem()
             ->run();
 
         $this->assertSame(array(true, true, true, true, false), $result);
 
         $result = Structr::ize($array)
             ->isList()
-            ->listPrototype()
+            ->item()
                 ->isInteger()->coerce()->end()
-            ->endPrototype()
+            ->endItem()
             ->run();
 
         $this->assertSame(array(2, 3, 3, 1, 0), $result);
 
         $result = Structr::ize($array)
             ->isList()
-            ->listPrototype()
+            ->item()
                 ->isString()->coerce()->end()
-            ->endPrototype()
+            ->endItem()
             ->run();
 
         $this->assertSame(array("2", "3", "3.12", "1", "0"), $result);
@@ -62,9 +62,9 @@ class ListTest extends \PHPUnit_Framework_TestCase
 
         Structr::ize(1)
             ->isList()
-            ->listPrototype()
+            ->item()
                 ->isInteger()->end()
-            ->endPrototype()
+            ->endItem()
             ->run();
     }
 
@@ -73,9 +73,9 @@ class ListTest extends \PHPUnit_Framework_TestCase
 
         Structr::ize(array(1, "aa" => 2, 3))
             ->isList()
-            ->listPrototype()
+            ->item()
                 ->isInteger()->end()
-            ->endPrototype()
+            ->endItem()
             ->run();
     }
 
@@ -85,9 +85,9 @@ class ListTest extends \PHPUnit_Framework_TestCase
         $result = Structr::ize($array)
             ->isList()
             ->minSize(2)
-            ->listPrototype()
+            ->item()
                 ->isInteger()->end()
-            ->endPrototype()
+            ->endItem()
             ->run();
 
         $this->assertSame($array, $result);
@@ -101,9 +101,9 @@ class ListTest extends \PHPUnit_Framework_TestCase
         Structr::ize($array)
             ->isList()
             ->minSize(3)
-            ->listPrototype()
+            ->item()
                 ->isInteger()->end()
-            ->endPrototype()
+            ->endItem()
             ->run();
     }
 
@@ -113,9 +113,9 @@ class ListTest extends \PHPUnit_Framework_TestCase
         $result = Structr::ize($array)
             ->isList()
             ->maxSize(2)
-            ->listPrototype()
+            ->item()
                 ->isInteger()->end()
-            ->endPrototype()
+            ->endItem()
             ->run();
 
         $this->assertSame($array, $result);
@@ -129,9 +129,9 @@ class ListTest extends \PHPUnit_Framework_TestCase
         Structr::ize($array)
             ->isList()
             ->maxSize(1)
-            ->listPrototype()
+            ->item()
                 ->isInteger()->end()
-            ->endPrototype()
+            ->endItem()
             ->run();
     }
 }

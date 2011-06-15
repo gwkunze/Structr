@@ -2,16 +2,12 @@
 
 namespace Structr\Tree\Composite;
 
-use Structr\Tree\Base\Node;
+use Structr\Tree\Base\PrototypeNode;
 
 use Structr\Exception;
 
-class MapKeyNode extends Node
+class MapKeyNode extends PrototypeNode
 {
-
-    /** @var \Structr\Tree\Composite\MapKeyPrototypeNode */
-    private $_keyPrototype = null;
-
     private $_required = true;
     private $_defaultValue = null;
 
@@ -25,15 +21,6 @@ class MapKeyNode extends Node
         return $this->_name;
     }
 
-    /**
-     * @return \Structr\Tree\Composite\MapKeyPrototypeNode
-     */
-    public function valuePrototype() {
-        $this->_keyPrototype = new MapKeyPrototypeNode($this);
-
-        return $this->_keyPrototype;
-    }
-
     public function defaultValue($value) {
         $this->_required = false;
         $this->_defaultValue = $value;
@@ -43,12 +30,6 @@ class MapKeyNode extends Node
 
     public function endKey() {
         return $this->parent();
-    }
-
-    public function _walk_value($value) {
-        $value = parent::_walk_value($value);
-        return $this->_keyPrototype->_walk_post($this->_keyPrototype
-                                                        ->_walk_value($value));
     }
 
     public function _walk_value_unset() {

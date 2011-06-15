@@ -14,7 +14,7 @@ class ListNode extends Node
     private $_minimumSize = null;
     private $_maximumSize = null;
 
-    public function listPrototype() {
+    public function item() {
         $this->_listPrototype = new ListPrototypeNode($this);
 
         return $this->_listPrototype;

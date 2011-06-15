@@ -35,9 +35,9 @@ class DefinitionTest extends \PHPUnit_Framework_TestCase
 
         $result = Structr::ize($list)
             ->isList()
-                ->listPrototype()
+                ->item()
                     ->isOneOf("data/*")->end()
-                ->endPrototype()
+                ->endItem()
             ->end()
             ->run();
 

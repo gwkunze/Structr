@@ -16,86 +16,70 @@ Example
 use Structr\Structr;
 
 $value = array(
-	"id" => 23,
-	"author" => "John",
-	"title" => "Foo",
-	"text" => "The quick brown fox jumps over the lazy dog's back",
-	"tags" => array("foo", "bar", "baz"),
-	"comments" => array(
-		array(
-			"author" => "Mike",
-			"text" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-		)
-	)
+    "id" => 23,
+    "author" => "John",
+    "title" => "Foo",
+    "text" => "The quick brown fox jumps over the lazy dog's back",
+    "tags" => array("foo", "bar", "baz"),
+    "comments" => array(
+        array(
+            "author" => "Mike",
+            "text" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        )
+    )
 );
 
 Structr::define("comment")  // Define the 'comment' subdocument
-	->isMap() // A map is an associative array
-		->strict() // A strict map doesn't allow any extra keys in the input document and will fail validation if any
-		           // are present
-		->key("author")
-			->defaultValue("Anonymous") // The default value is used if the key is not present in the input document
-			->valuePrototype()
-				->isString()->end()
-			->endPrototype()
-		->endKey()
-		->key("text")
-			->valuePrototype()
-				->isString()->end()
-			->endPrototype()
-		->endKey()
-	->end()
-	;
+    ->isMap() // A map is an associative array
+        ->strict() // A strict map doesn't allow any extra keys in the input document and will fail validation if any
+                   // are present
+        ->key("author")
+            ->defaultValue("Anonymous") // The default value is used if the key is not present in the input document
+            ->isString()->end()
+        ->endKey()
+        ->key("text")
+            ->isString()->end()
+        ->endKey()
+    ->end()
+    ;
 
 $document = Structr::ize($value)
-	->isMap()
-		->key("id")
-			->valuePrototype()
-				->isInteger()->coerce()->end() // Scalar values such as integers are parsed strictly by default, if the
-				                               // type is not the same it will raise an exception. The 'coerce' option
-				                               // will tell the parser to allow Structr to cast the value to the desired
-				                               // type.
-			->endPrototype()
-		->endKey()
-		->key("author")
-			->defaultValue("No Author")
-			->valuePrototype()
-				->isString()->end()
-			->endPrototype()
-		->endKey()
-		->key("title")
-			->valuePrototype()
-				->isString()->end()
-			->endPrototype()
-		->endKey()
-		->key("text")
-			->valuePrototype()
-				->isString()->end()
-			->endPrototype()
-		->endKey()
-		->key("tags")
-			->valuePrototype()
-				->isList()
-					->listPrototype()
-						->isString()->end()
-					->endPrototype()
-				->end()
-				->post(function($v) { sort($v); return $v; }) // Any node in the Structr tree can define a
-				                                              // postprocessing function to be called on the resulting
-				                                              // value for that node.
-			->endPrototype()
-		->endKey()
-		->key("comments")
-			->valuePrototype()
-				->isList()
-					->listPrototype()
-						->is("comment")->end()
-					->endPrototype()
-				->end()
-			->endPrototype()
-		->endKey()
-	->end()
-	->run();
+    ->isMap()
+        ->key("id")
+            ->isInteger()->coerce()->end() // Scalar values such as integers are parsed strictly by default, if the
+                                           // type is not the same it will raise an exception. The 'coerce' option
+                                           // will tell the parser to allow Structr to cast the value to the desired
+                                           // type.
+        ->endKey()
+        ->key("author")
+            ->defaultValue("No Author")
+            ->isString()->end()
+        ->endKey()
+        ->key("title")
+            ->isString()->end()
+        ->endKey()
+        ->key("text")
+            ->isString()->end()
+        ->endKey()
+        ->key("tags")
+            ->isList()
+                ->item()
+                    ->isString()->end()
+                ->endItem()
+            ->end()
+            ->post(function($v) { sort($v); return $v; }) // Any node in the Structr tree can define a
+                                                          // postprocessing function to be called on the resulting
+                                                          // value for that node.
+        ->endKey()
+        ->key("comments")
+            ->isList()
+                ->item()
+                    ->is("comment")->end()
+                ->endItem()
+            ->end()
+        ->endKey()
+    ->end()
+    ->run();
 
 ```
 

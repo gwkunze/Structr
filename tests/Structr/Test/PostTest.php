@@ -41,33 +41,27 @@ class PostTest extends \PHPUnit_Framework_TestCase
             ->isMap()
                 ->strict()
                 ->key("id")
-                    ->valuePrototype()
-                        ->isInteger()->end()
-                    ->endPrototype()
+                    ->isInteger()->end()
                     ->post(function($v) {
                         return sprintf("ID-%08d", $v);
                     })
                 ->endKey()
                 ->key("items")
-                    ->valuePrototype()
-                        ->isList()
-                            ->listPrototype()
-                                ->isInteger()
-                                ->post(function($v) {
-                                    return $v * $v;
-                                })
-                                ->end()
-                            ->endPrototype()
-                        ->end()
-                    ->endPrototype()
+                    ->isList()
+                        ->item()
+                            ->isInteger()
+                            ->post(function($v) {
+                                return $v * $v;
+                            })
+                            ->end()
+                        ->endItem()
+                    ->end()
                     ->post(function($v) {
                         return array_reverse($v);
                     })
                 ->endKey()
                 ->key("foo")
-                    ->valuePrototype()
-                        ->isString()->end()
-                    ->endPrototype()
+                    ->isString()->end()
                     ->post(function($v) {
                         return str_repeat($v, 3);
                     })

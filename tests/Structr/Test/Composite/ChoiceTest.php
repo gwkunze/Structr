@@ -22,7 +22,7 @@ class ChoiceTest extends \PHPUnit_Framework_TestCase
 
         $result = Structr::ize($array)
             ->isList()
-                ->listPrototype()
+                ->item()
                     ->isChoice()
                         ->altPrototype()
                             ->isInteger()->end()
@@ -31,7 +31,7 @@ class ChoiceTest extends \PHPUnit_Framework_TestCase
                             ->isFloat()->coerce()->end()
                         ->endPrototype()
                     ->end()
-                ->endPrototype()
+                ->endItem()
             ->end()
             ->run();
 

@@ -6,7 +6,7 @@ use Structr\Tree\Base\PrototypeNode;
 
 class ListPrototypeNode extends PrototypeNode
 {
-    public function endPrototype() {
+    public function endItem() {
         return $this->parent();
     }
 }
