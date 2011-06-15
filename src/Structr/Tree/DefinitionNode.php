@@ -2,8 +2,10 @@
 
 namespace Structr\Tree;
 
-class DefinitionNode extends Base\PrototypeNode {
-	public function __construct() {
-	}
+use Structr\Tree\Base\PrototypeNode;
 
+class DefinitionNode extends PrototypeNode
+{
+    public function __construct() {
+    }
 }

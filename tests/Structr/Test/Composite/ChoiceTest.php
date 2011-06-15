@@ -4,38 +4,38 @@ namespace Structr\Test\Composite;
 
 use Structr\Structr;
 
-class ChoiceTest extends \PHPUnit_Framework_TestCase {
+class ChoiceTest extends \PHPUnit_Framework_TestCase
+{
 
-	public function testSimpleMap() {
-		$array = array(
-			3,
-			6,
-			"3.1415"
-		);
+    public function testSimpleMap() {
+        $array = array(
+            3,
+            6,
+            "3.1415"
+        );
 
-		$expected = array(
-			3,
-			6,
-			3.1415
-		);
+        $expected = array(
+            3,
+            6,
+            3.1415
+        );
 
-		$result = Structr::ize($array)
-			->isList()
-				->listPrototype()
-					->isChoice()
-						->altPrototype()
-							->isInteger()->end()
-						->endPrototype()
-						->altPrototype()
-							->isFloat()->coerce()->end()
-						->endPrototype()
-					->end()
-				->endPrototype()
-			->end()
-			->run()
-		;
+        $result = Structr::ize($array)
+            ->isList()
+                ->listPrototype()
+                    ->isChoice()
+                        ->altPrototype()
+                            ->isInteger()->end()
+                        ->endPrototype()
+                        ->altPrototype()
+                            ->isFloat()->coerce()->end()
+                        ->endPrototype()
+                    ->end()
+                ->endPrototype()
+            ->end()
+            ->run();
 
-		$this->assertSame($expected, $result);
-	}
+        $this->assertSame($expected, $result);
+    }
 
 }

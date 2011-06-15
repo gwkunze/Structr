@@ -6,61 +6,67 @@ use Structr\Tree\Base\Node;
 
 use Structr\Exception;
 
-class ListNode extends Node {
-	/** @var ListPrototypeNode */
-	private $listPrototype = null;
+class ListNode extends Node
+{
+    /** @var ListPrototypeNode */
+    private $_listPrototype = null;
 
-	private $minimumSize = null;
-	private $maximumSize = null;
+    private $_minimumSize = null;
+    private $_maximumSize = null;
 
-	public function listPrototype() {
-		$this->listPrototype = new ListPrototypeNode($this);
+    public function listPrototype() {
+        $this->_listPrototype = new ListPrototypeNode($this);
 
-		return $this->listPrototype;
-	}
+        return $this->_listPrototype;
+    }
 
-	public function minSize($size) {
-		$this->minimumSize = $size;
+    public function minSize($size) {
+        $this->_minimumSize = $size;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function maxSize($size) {
-		$this->maximumSize = $size;
+    public function maxSize($size) {
+        $this->_maximumSize = $size;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function _walk_value($value = null) {
-		$value = parent::_walk_value($value);
+    public function _walk_value($value = null) {
+        $value = parent::_walk_value($value);
 
-		if($this->listPrototype === null) {
-			throw new Exception("List without prototype");
-		}
+        if ($this->_listPrototype === null) {
+            throw new Exception("List without prototype");
+        }
 
-		if(!is_array($value)) {
-			throw new Exception("Invalid type '" . gettype($value) . "', expecting 'list' (numerical array)");
-		}
+        if (!is_array($value)) {
+            throw new Exception(
+                "Invalid type '"
+                . gettype($value) . "', expecting 'list' (numerical array)");
+        }
 
-		$return = array();
+        $return = array();
 
-		$length = count($value);
+        $length = count($value);
 
-		if($this->minimumSize !== null) {
-			if($length < $this->minimumSize)
-				throw new Exception("List smaller than minimum size");
-		}
+        if ($this->_minimumSize !== null) {
+            if($length < $this->_minimumSize)
+                throw new Exception("List smaller than minimum size");
+        }
 
-		if($this->maximumSize !== null) {
-			if($length > $this->maximumSize)
-				throw new Exception("List larger then maximum size");
-		}
+        if ($this->_maximumSize !== null) {
+            if($length > $this->_maximumSize)
+                throw new Exception("List larger then maximum size");
+        }
 
-		for($i = 0;$i < $length;$i++) {
-			if(!isset($value[$i]))
-				throw new Exception("Invalid list, missing index '{$i}'. Might be a map.");
-			$return[] = $this->listPrototype->_walk_post($this->listPrototype->_walk_value($value[$i]));
-		}
-		return $return;
-	}
+        for ($i = 0;$i < $length;$i++) {
+            if(!isset($value[$i]))
+                throw new Exception(
+                    "Invalid list, missing index '{$i}'. Might be a map.");
+            $return[] = $this->_listPrototype
+                    ->_walk_post($this->_listPrototype
+                                         ->_walk_value($value[$i]));
+        }
+        return $return;
+    }
 }

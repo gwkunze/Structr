@@ -6,75 +6,82 @@ use Structr\Tree\Base\ScalarNode;
 
 use Structr\Exception;
 
-abstract class NumberNode extends ScalarNode {
+abstract class NumberNode extends ScalarNode
+{
 
-	private $has_gt = false;
-	private $has_gte = false;
-	private $has_lt = false;
-	private $has_lte = false;
-	private $compare_gt;
-	private $compare_gte;
-	private $compare_lt;
-	private $compare_lte;
-	private $clamp_gte = false;
-	private $clamp_lte = false;
+    private $_hasGt = false;
+    private $_hasGte = false;
+    private $_hasLt = false;
+    private $_hasLte = false;
+    private $_compareGt;
+    private $_compareGte;
+    private $_compareLt;
+    private $_compareLte;
+    private $_clampGte = false;
+    private $_clampLte = false;
 
-	public function gt($value) {
-		$this->has_gt = true;
-		$this->compare_gt = $value;
+    public function gt($value) {
+        $this->_hasGt = true;
+        $this->_compareGt = $value;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function gte($value, $clamp = false) {
-		$this->has_gte = true;
-		$this->compare_gte = $value;
-		$this->clamp_gte = $clamp;
+    public function gte($value, $clamp = false) {
+        $this->_hasGte = true;
+        $this->_compareGte = $value;
+        $this->_clampGte = $clamp;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function lt($value) {
-		$this->has_lt = true;
-		$this->compare_lt = $value;
+    public function lt($value) {
+        $this->_hasLt = true;
+        $this->_compareLt = $value;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function lte($value, $clamp = false) {
-		$this->has_lte = true;
-		$this->compare_lte = $value;
-		$this->clamp_lte = $clamp;
+    public function lte($value, $clamp = false) {
+        $this->_hasLte = true;
+        $this->_compareLte = $value;
+        $this->_clampLte = $clamp;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function clamp($low, $high) {
-		$this->gte($low, true);
-		$this->lte($high, true);
+    public function clamp($low, $high) {
+        $this->gte($low, true);
+        $this->lte($high, true);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function _walk_value($value) {
-		$value = parent::_walk_value($value);
+    public function _walk_value($value) {
+        $value = parent::_walk_value($value);
 
-		if($this->has_gte) {
-			if($value < $this->compare_gte && !$this->clamp_gte)
-				throw new Exception("Value '{$value}' lower than allowed ({$this->compare_gte})");
-			$value = max($this->compare_gte, $value);
-		}
-		if($this->has_lte) {
-			if($value > $this->compare_lte && !$this->clamp_lte)
-				throw new Exception("Value '{$value}' higher than allowed ({$this->compare_lte})");
-			$value = min($this->compare_lte, $value);
-		}
+        if ($this->_hasGte) {
+            if($value < $this->_compareGte && !$this->_clampGte)
+                throw new Exception(
+                    "Value '{$value}' lower than"
+                    . " allowed ({$this->_compareGte})");
+            $value = max($this->_compareGte, $value);
+        }
+        if ($this->_hasLte) {
+            if($value > $this->_compareLte && !$this->_clampLte)
+                throw new Exception(
+                    "Value '{$value}' higher"
+                    . " than allowed ({$this->_compareLte})");
+            $value = min($this->_compareLte, $value);
+        }
 
-		if($this->has_gt && $value <= $this->compare_gt)
-			throw new Exception("Value '{$value}' lower than allowed ({$this->compare_gt})");
-		if($this->has_lt && $value >= $this->compare_lt)
-			throw new Exception("Value '{$value}' higher than allowed ({$this->compare_lt})");
+        if ($this->_hasGt && $value <= $this->_compareGt)
+            throw new Exception(
+                "Value '{$value}' lower than allowed ({$this->_compareGt})");
+        if ($this->_hasLt && $value >= $this->_compareLt)
+            throw new Exception(
+                "Value '{$value}' higher than allowed ({$this->_compareLt})");
 
-		return $value;
-	}
+        return $value;
+    }
 }

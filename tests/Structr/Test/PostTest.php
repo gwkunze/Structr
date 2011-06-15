@@ -4,71 +4,80 @@ namespace Structr\Test;
 
 use Structr\Structr;
 
-class PostTest extends \PHPUnit_Framework_TestCase {
+class PostTest extends \PHPUnit_Framework_TestCase
+{
 
-	public function testSimplePostProcessing() {
-		$value = 3;
+    public function testSimplePostProcessing() {
+        $value = 3;
 
-		$expected = 4;
+        $expected = 4;
 
-		$result = Structr::ize($value)
-			->isInteger()
-				->post(function($v) {
-					return $v + 1;
-				})
-			->end()
-			->run()
-		;
+        $result = Structr::ize($value)
+            ->isInteger()
+                ->post(function($v) {
+                    return $v + 1;
+                })
+            ->end()
+            ->run();
 
-		$this->assertSame($expected, $result);
-	}
+        $this->assertSame($expected, $result);
+    }
 
-	public function testMap() {
-		$array = array(
-			"id" => 123,
-			"items" => array(1,2,3),
-			"foo" => "bar"
-		);
+    public function testMap() {
+        $array = array(
+            "id" => 123,
+            "items" => array(1,2,3),
+            "foo" => "bar"
+        );
 
-		$expected = array(
-			"id" => "ID-00000123",
-			"items" => array(9, 4, 1),
-			"foo" => "barbarbar",
-			"ban" => "baz"
-		);
+        $expected = array(
+            "id" => "ID-00000123",
+            "items" => array(9, 4, 1),
+            "foo" => "barbarbar",
+            "ban" => "baz"
+        );
 
-		$result = Structr::ize($array)
-			->isMap()
-				->strict()
-				->key("id")
-					->valuePrototype()
-						->isInteger()->end()
-					->endPrototype()
-					->post(function($v) { return sprintf("ID-%08d", $v); })
-				->endKey()
-				->key("items")
-					->valuePrototype()
-						->isList()
-							->listPrototype()
-								->isInteger()
-								->post(function($v) { return $v * $v; })
-								->end()
-							->endPrototype()
-						->end()
-					->endPrototype()
-					->post(function($v) { return array_reverse($v); })
-				->endKey()
-				->key("foo")
-					->valuePrototype()
-						->isString()->end()
-					->endPrototype()
-					->post(function($v) { return str_repeat($v, 3); })
-				->endKey()
-				->post(function($v) { $v["ban"] = "baz"; return $v; })
-			->end()
-			->run()
-		;
+        $result = Structr::ize($array)
+            ->isMap()
+                ->strict()
+                ->key("id")
+                    ->valuePrototype()
+                        ->isInteger()->end()
+                    ->endPrototype()
+                    ->post(function($v) {
+                        return sprintf("ID-%08d", $v);
+                    })
+                ->endKey()
+                ->key("items")
+                    ->valuePrototype()
+                        ->isList()
+                            ->listPrototype()
+                                ->isInteger()
+                                ->post(function($v) {
+                                    return $v * $v;
+                                })
+                                ->end()
+                            ->endPrototype()
+                        ->end()
+                    ->endPrototype()
+                    ->post(function($v) {
+                        return array_reverse($v);
+                    })
+                ->endKey()
+                ->key("foo")
+                    ->valuePrototype()
+                        ->isString()->end()
+                    ->endPrototype()
+                    ->post(function($v) {
+                        return str_repeat($v, 3);
+                    })
+                ->endKey()
+                ->post(function($v) {
+                    $v["ban"] = "baz"; return $v;
+                })
+            ->end()
+            ->run();
 
-		$this->assertSame($expected, $result);
-	}
+        $this->assertSame($expected, $result);
+    }
 }

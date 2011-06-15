@@ -4,10 +4,11 @@ namespace Structr\Tree\Scalar;
 
 use Structr\Tree\Base\NumberNode;
 
-class IntegerNode extends NumberNode {
+class IntegerNode extends NumberNode
+{
 
-	public function getScalarType() {
-		return "integer";
-	}
+    public function getScalarType() {
+        return "integer";
+    }
 
 }
