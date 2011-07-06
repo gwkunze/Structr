@@ -9,6 +9,7 @@ use Structr\Tree\Scalar\FloatNode;
 use Structr\Tree\Scalar\BooleanNode;
 use Structr\Tree\Scalar\NullNode;
 use Structr\Tree\Scalar\StringNode;
+use Structr\Tree\Scalar\AnyNode;
 
 use Structr\Tree\Composite\ListNode;
 use Structr\Tree\Composite\MapNode;
@@ -69,6 +70,15 @@ abstract class PrototypeNode extends Node
      */
     public function isNull() {
         $this->_prototype = new NullNode($this);
+
+        return $this->_prototype;
+    }
+
+    /**
+     * @return \Structr\Tree\Scalar\AnyNode
+     */
+    public function isAny() {
+        $this->_prototype = new AnyNode($this);
 
         return $this->_prototype;
     }
