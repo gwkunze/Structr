@@ -9,6 +9,7 @@ use Structr\Exception;
 class MapNode extends Node
 {
     private $_keys = array();
+    private $_regexp_keys = array();
     private $_strict = false;
 
     /**
@@ -21,6 +22,13 @@ class MapNode extends Node
         $this->_keys[$keyname]->setName($keyname);
 
         return $this->_keys[$keyname];
+    }
+
+    public function keyMatch($regexp) {
+        $this->_regexp_keys[$regexp] = new MapKeyNode($this);
+        $this->_regexp_keys[$regexp]->setName($regexp);
+
+        return $this->_regexp_keys[$regexp];
     }
 
     public function strict() {
@@ -47,8 +55,17 @@ class MapNode extends Node
                 $return[$key] = $val->_walk_post($val
                                                  ->_walk_value_unset());
             }
-            if ($this->_strict) {
-                unset($value[$key]);
+
+            unset($value[$key]);
+        }
+
+        foreach ($this->_regexp_keys as $regexp => $val) {
+            foreach(array_keys($value) as $arrayKey) {
+                if(preg_match($regexp, $arrayKey)) {
+                    $return[$arrayKey] = $val->_walk_post($val->_walk_value($value[$arrayKey]));
+
+                    unset($value[$arrayKey]);
+                }
             }
         }
 

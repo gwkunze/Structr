@@ -127,4 +127,25 @@ class MapTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, $result);
     }
 
+    public function testMapKeyMatch() {
+        $array = array(
+            "name" => "John",
+            "telephone-home" => "(555)0123",
+            "telephone-work" => "(555)1234"
+        );
+
+        $expected = $array;
+
+        $result = Structr::ize($array)
+            ->isMap()
+                ->key("name")
+                    ->isString()->end()
+                ->endKey()
+                ->keyMatch("/^telephone-/")
+                    ->isString()->regexp("/^[\(\)0-9]+$/")->end()
+                ->endKey()
+            ->run();
+
+        $this->assertSame($expected, $result);
+    }
 }
