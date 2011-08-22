@@ -138,11 +138,46 @@ class MapTest extends \PHPUnit_Framework_TestCase
 
         $result = Structr::ize($array)
             ->isMap()
+                ->strict()
                 ->key("name")
                     ->isString()->end()
                 ->endKey()
                 ->keyMatch("/^telephone-/")
                     ->isString()->regexp("/^[\(\)0-9]+$/")->end()
+                ->endKey()
+            ->run();
+
+        $this->assertSame($expected, $result);
+    }
+
+    public function testMapFunctionMatch() {
+        $array = array(
+            "a" => 0,
+            "b" => 1,
+            "c" => 2,
+            "d" => 3,
+            "e" => 4,
+            "f" => 5,
+            "g" => 6,
+            "h" => 7,
+            "i" => 8,
+            "j" => 9,
+        );
+
+        $expected = array(
+            "b" => 1,
+            "c" => 2,
+            "d" => 3,
+            "f" => 5,
+            "g" => 6,
+            "h" => 7,
+            "j" => 9,
+        );
+
+        $result = Structr::ize($array)
+            ->isMap()
+                ->keyMatch(function($key) { return !in_array($key, array('a', 'e', 'i', 'u', 'o')); })
+                    ->isAny()->end()
                 ->endKey()
             ->run();
 

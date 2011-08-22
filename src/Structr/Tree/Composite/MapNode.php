@@ -10,6 +10,7 @@ class MapNode extends Node
 {
     private $_keys = array();
     private $_regexp_keys = array();
+    private $_function_keys = array();
     private $_strict = false;
 
     /**
@@ -24,11 +25,21 @@ class MapNode extends Node
         return $this->_keys[$keyname];
     }
 
-    public function keyMatch($regexp) {
-        $this->_regexp_keys[$regexp] = new MapKeyNode($this);
-        $this->_regexp_keys[$regexp]->setName($regexp);
+    public function keyMatch($matcher, $name = null) {
+        if(is_callable($matcher, false, $callable_name)) {
+            if($name === null) $name = $callable_name;
+            $node = new MapKeyNode($this);
+            $node->setName($name);
+            $this->_function_keys[] = array("node" => $node, "function" => $matcher);
+            return $node;
+        } else {
+            if($name === null) $name = $matcher;
+            $node = new MapKeyNode($this);
+            $node->setName($name);
+            $this->_regexp_keys[$matcher] = $node;
 
-        return $this->_regexp_keys[$regexp];
+            return $node;
+        }
     }
 
     public function strict() {
@@ -63,6 +74,16 @@ class MapNode extends Node
             foreach(array_keys($value) as $arrayKey) {
                 if(preg_match($regexp, $arrayKey)) {
                     $return[$arrayKey] = $val->_walk_post($val->_walk_value($value[$arrayKey]));
+
+                    unset($value[$arrayKey]);
+                }
+            }
+        }
+
+        foreach ($this->_function_keys as $function) {
+            foreach(array_keys($value) as $arrayKey) {
+                if($function["function"]($arrayKey)) {
+                    $return[$arrayKey] = $function['node']->_walk_post($function['node']->_walk_value($value[$arrayKey]));
 
                     unset($value[$arrayKey]);
                 }
