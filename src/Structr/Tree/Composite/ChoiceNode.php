@@ -23,6 +23,10 @@ class ChoiceNode extends Node
         return $prototype;
     }
 
+    public function clear() {
+        $this->_alternatives = array();
+    }
+
     public function _walk_value($value) {
         $value = parent::_walk_value($value);
 

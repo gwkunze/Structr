@@ -44,4 +44,17 @@ class DefinitionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, $result);
     }
 
+    public function testDefinitionClosure() {
+        Structr::clearAll();
+
+        Structr::define("foo")->isInteger()->post(function($v) { return $v * 2; });
+
+        $value = 3;
+
+        $expected = $value * 2;
+
+        $result = Structr::ize($value)->is("foo")->run();
+
+        $this->assertSame($expected, $result);
+    }
 }

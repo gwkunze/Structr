@@ -42,6 +42,23 @@ class MapNode extends Node
         }
     }
 
+    public function removeKey($keyname) {
+        if(isset($this->_keys[$keyname])) {
+            unset($this->_keys[$keyname]);
+        }
+
+        return $this;
+    }
+
+    public function clear() {
+        $this->_strict = false;
+        $this->_keys = array();
+        $this->_regexp_keys = array();
+        $this->_function_keys = array();
+
+        return $this;
+    }
+
     public function strict() {
         $this->_strict = true;
         return $this;
