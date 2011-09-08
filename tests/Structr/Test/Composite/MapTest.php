@@ -183,4 +183,30 @@ class MapTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($expected, $result);
     }
+
+    public function testOptionalKey() {
+        Structr::clearAll();
+
+        Structr::define("foo")
+            ->isMap()
+                ->key("foo")->isString()->end()->endKey()
+                ->key("baz")->optional()->isString()->end()->endKey()
+            ->end();
+
+        $array = array("foo" => "bar");
+
+        $expected = $array;
+
+        $result = Structr::ize($array)->is("foo")->run();
+
+        $this->assertSame($expected, $result);
+
+        $array = array("foo" => "bar", "baz" => "ban");
+
+        $expected = $array;
+
+        $result = Structr::ize($array)->is("foo")->run();
+
+        $this->assertSame($expected, $result);
+    }
 }

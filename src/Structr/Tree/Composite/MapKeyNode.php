@@ -9,6 +9,7 @@ use Structr\Exception;
 class MapKeyNode extends PrototypeNode
 {
     private $_required = true;
+    private $_optional = false;
     private $_defaultValue = null;
 
     private $_name;
@@ -26,6 +27,16 @@ class MapKeyNode extends PrototypeNode
         $this->_defaultValue = $value;
 
         return $this;
+    }
+
+    public function optional() {
+        $this->_optional = true;
+
+        return $this;
+    }
+
+    public function isOptional() {
+        return $this->_optional;
     }
 
     public function endKey() {
