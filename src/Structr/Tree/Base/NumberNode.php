@@ -84,4 +84,10 @@ abstract class NumberNode extends ScalarNode
 
         return $value;
     }
+
+    public function setType(&$value) {
+        if ($this->_coerceStrict && !is_numeric($value))
+            return false;
+        return parent::setType($value);
+    }
 }

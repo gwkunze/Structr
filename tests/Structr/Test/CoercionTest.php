@@ -67,6 +67,19 @@ class CoercionTest extends \PHPUnit_Framework_TestCase
                                    ->run());
     }
 
+    public function testIntegerStrict() {
+        $this->assertSame(123, Structr::ize("123")
+                                   ->isInteger()->coerce(true)
+                                   ->run());
+        $this->assertSame(0, Structr::ize("0")
+                                   ->isInteger()->coerce(true)
+                                   ->run());
+
+        $this->setExpectedException('\Structr\Exception');
+        Structr::ize('invalidnumber')->isInteger()->coerce(true)->run();
+    }
+
+
     public function testFloat() {
         $this->assertEquals(0, Structr::ize(null)
                                      ->isFloat()->coerce()

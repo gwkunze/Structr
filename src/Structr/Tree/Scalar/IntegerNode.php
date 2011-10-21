@@ -11,4 +11,9 @@ class IntegerNode extends NumberNode
         return "integer";
     }
 
+    public function setType(&$value) {
+        if ($this->_coerceStrict && is_string($value) && !ctype_digit($value))
+            return false;
+        return parent::setType($value);
+    }
 }

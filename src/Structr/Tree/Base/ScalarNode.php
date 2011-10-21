@@ -23,7 +23,8 @@ abstract class ScalarNode extends Node
                                                       $this->_coerceStrict);
         }
 
-        if ($this->_coerceStrict || !@settype($value, $this->getScalarType()))
+        $typeok = $this->setType($value, $this->getScalarType());
+        if ($this->_coerceStrict && !$typeok)
             throw new Exception("Can't coerce '$type' to '"
                                 . $this->getScalarType() ."'");
 
@@ -39,6 +40,11 @@ abstract class ScalarNode extends Node
         return $this;
     }
 
+    public function setType(&$value)
+    {
+        return @settype($value, $this->getScalarType());
+    }
+
     protected function _walk_value($value) {
         $value = parent::_walk_value($value);
 
@@ -48,6 +54,6 @@ abstract class ScalarNode extends Node
         }
 
         throw new Exception("Invalid type for '" . gettype($value)
-                            . "', expecting " . $this->getScalarType());
+                            . "', expecting '" . $this->getScalarType() . "'");
     }
 }
