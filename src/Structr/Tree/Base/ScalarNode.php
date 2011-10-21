@@ -33,6 +33,10 @@ abstract class ScalarNode extends Node
 
     public abstract function getScalarType();
 
+    public function strict() {
+        return $this->coerce(true);
+    }
+
     public function coerce($strict = false) {
         $this->_coerce = true;
         $this->_coerceStrict = $strict;
