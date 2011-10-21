@@ -75,12 +75,14 @@ abstract class Node
         return $this->parent();
     }
 
-    public function run() {
+    public function run($value = null) {
         if ($this->_parent !== null) {
-            return $this->root()->run();
+            return $this->root()->run($value);
         }
 
-        $value = $this->getValue();
+        if ($value === null) {
+            $value = $this->getValue();
+        }
 
         $return = $this->_walk_value($value);
 

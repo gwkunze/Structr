@@ -38,9 +38,11 @@ class Structr
         self::$_definitions = array();
     }
 
-    public static function define($name) {
+    public static function define($name = null) {
         $node = new DefinitionNode();
-        self::$_definitions[$name] = $node;
+        if (!empty($name)) {
+            self::$_definitions[$name] = $node;
+        }
 
         return $node;
     }
