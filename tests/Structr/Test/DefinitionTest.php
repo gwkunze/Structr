@@ -57,4 +57,21 @@ class DefinitionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($expected, $result);
     }
+
+    public function testEmptyDefinition() {
+        Structr::clearAll();
+
+        $structr = Structr::define()->isInteger()->end();
+        $this->assertInstanceOf('Structr\Tree\DefinitionNode', $structr);
+    }
+
+
+    public function testRunWithValue() {
+        Structr::clearAll();
+        $structr = Structr::define()->isInteger()->end();
+
+        $expected = 2;
+        $this->assertSame($expected, $structr->run(2));
+    }
+
 }
