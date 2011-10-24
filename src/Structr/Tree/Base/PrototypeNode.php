@@ -150,6 +150,11 @@ abstract class PrototypeNode extends Node
         return $this->getPrototype()->_walk_value($value);
     }
 
+    public function _walk_pre($value) {
+        $value = parent::_walk_pre($value);
+        return $this->getPrototype()->_walk_pre($value);
+    }
+
     public function _walk_post($value) {
         $value = parent::_walk_post($value);
         return $this->getPrototype()->_walk_post($value);

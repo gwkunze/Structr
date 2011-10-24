@@ -33,7 +33,8 @@ class ChoiceNode extends Node
         foreach ($this->_alternatives as $alternative) {
             try {
                 return $alternative->_walk_post($alternative
-                                                ->_walk_value($value));
+                                                ->_walk_value(
+                                                    $alternative->_walk_pre($value)));
             } catch(Exception $e) {
             }
         }

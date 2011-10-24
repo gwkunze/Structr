@@ -7,6 +7,7 @@ use \Structr\Exception;
 abstract class Node
 {
     private $_parent = null;
+    private $_pre = null;
     private $_post = null;
     private $_id = null;
 
@@ -57,6 +58,12 @@ abstract class Node
         $this->_parent = $parent;
     }
 
+    public function pre($function) {
+        $this->_pre = $function;
+
+        return $this;
+    }
+
     public function post($function) {
         $this->_post = $function;
 
@@ -84,12 +91,21 @@ abstract class Node
             $value = $this->getValue();
         }
 
-        $return = $this->_walk_value($value);
+        $return = $this->_walk_value($this->_walk_pre($value));
 
         return $this->_walk_post($return);
     }
 
     protected function _walk_value($value) {
+        return $value;
+    }
+
+    protected function _walk_pre($value) {
+
+        if ($this->_pre !== null) {
+            $value = call_user_func($this->_pre, $value);
+        }
+
         return $value;
     }
 

@@ -64,8 +64,9 @@ class ListNode extends Node
                 throw new Exception(
                     "Invalid list, missing index '{$i}'. Might be a map.");
             $return[] = $this->_listPrototype
-                    ->_walk_post($this->_listPrototype
-                                         ->_walk_value($value[$i]));
+                ->_walk_post($this->_listPrototype
+                             ->_walk_value($this->_listPrototype
+                                           ->_walk_pre($value[$i])));
         }
         return $return;
     }

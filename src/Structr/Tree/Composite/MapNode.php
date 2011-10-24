@@ -78,7 +78,8 @@ class MapNode extends Node
         foreach ($this->_keys as $key => $val) {
             if (isset($value[$key])) {
                 $return[$key] = $val->_walk_post($val
-                                                 ->_walk_value($value[$key]));
+                                                 ->_walk_value($val->
+                                                               _walk_pre($value[$key])));
             } elseif($val->isOptional()) {
                 continue;
             } else {
@@ -92,7 +93,7 @@ class MapNode extends Node
         foreach ($this->_regexp_keys as $regexp => $val) {
             foreach(array_keys($value) as $arrayKey) {
                 if(preg_match($regexp, $arrayKey)) {
-                    $return[$arrayKey] = $val->_walk_post($val->_walk_value($value[$arrayKey]));
+                    $return[$arrayKey] = $val->_walk_post($val->_walk_value($val->_walk_pre($value[$arrayKey])));
 
                     unset($value[$arrayKey]);
                 }
@@ -102,7 +103,7 @@ class MapNode extends Node
         foreach ($this->_function_keys as $function) {
             foreach(array_keys($value) as $arrayKey) {
                 if($function["function"]($arrayKey)) {
-                    $return[$arrayKey] = $function['node']->_walk_post($function['node']->_walk_value($value[$arrayKey]));
+                    $return[$arrayKey] = $function['node']->_walk_post($function['node']->_walk_value($function['node']->_walk_pre($value[$arrayKey])));
 
                     unset($value[$arrayKey]);
                 }
