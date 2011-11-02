@@ -47,6 +47,26 @@ class Structr
         return $node;
     }
 
+    /**
+     * Given a class name, define a Structr which exports all its
+     * public properties as a map.
+     */
+    public static function defineFromClass($className)
+    {
+        $reflect = new \ReflectionClass($className);
+        $structr = static::define($className)
+            ->pre(function($s) { return (array)$s; })
+            ->isMap();
+
+        foreach ($reflect->getProperties(\ReflectionProperty::IS_PUBLIC) as $prop)
+        {
+            $structr->key($prop->getName())->optional()->isAny()->end();
+        }
+
+        return $structr;
+    }
+
+
     public static function getDefinition($name) {
         if(!isset(self::$_definitions[$name]))
             throw new Exception("Structr definition '{$name}' does not exist");
