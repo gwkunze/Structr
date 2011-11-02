@@ -9,6 +9,7 @@ use Structr\Tree\Scalar\FloatNode;
 use Structr\Tree\Scalar\BooleanNode;
 use Structr\Tree\Scalar\NullNode;
 use Structr\Tree\Scalar\StringNode;
+use Structr\Tree\Scalar\DateTimeNode;
 use Structr\Tree\Scalar\AnyNode;
 
 use Structr\Tree\Composite\ListNode;
@@ -70,6 +71,15 @@ abstract class PrototypeNode extends Node
      */
     public function isNull() {
         $this->_prototype = new NullNode($this);
+
+        return $this->_prototype;
+    }
+
+    /**
+     * @return \Structr\Tree\Scalar\DateTime
+     */
+    public function isDateTime() {
+        $this->_prototype = new DateTimeNode($this);
 
         return $this->_prototype;
     }

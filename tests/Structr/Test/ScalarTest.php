@@ -100,4 +100,22 @@ class ScalarTest extends \PHPUnit_Framework_TestCase
 
         Structr::ize($string)->isString()->regexp("/^\d{4}\w{2}$/")->run();
     }
+
+    public function testDateTime() {
+        $variable = new \DateTime;
+
+        $this->assertSame(Structr::ize($variable)
+                                  ->isDateTime()
+                                  ->run(), $variable);
+    }
+
+    public function testDateTimeFail() {
+        $this->setExpectedException('\\Structr\\Exception');
+
+        $notADateTime = 'fsdafsd';
+
+        Structr::ize($notADateTime)->isDateTime()->run();
+    }
+
+    
 }
