@@ -76,26 +76,6 @@ class JsonTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * Test nesting depth
-     */
-    public function testNestingDepth() {
-        $input = '{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{a: 1}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}';
-        
-        $this->setExpectedException(
-            '\Structr\Exception', 'Syntax error'
-        );
-                
-        Structr::ize($input)
-            ->isJsonList()
-            ->item()
-                ->isAny()->end()
-            ->endItem()
-            ->run();
-        
-        $this->fail('Should have raised an exception');
-    }
-    
-    /**
      * Partially JSON
      */
     public function testPartialJson()
