@@ -29,8 +29,8 @@ class MapKeyNode extends PrototypeNode
         return $this;
     }
 
-    public function optional() {
-        $this->_optional = true;
+    public function optional($optional = true) {
+        $this->_optional = $optional;
 
         return $this;
     }
