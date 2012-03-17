@@ -15,7 +15,7 @@ class Structr
     }
 
     public static function izeJson($json) {
-        return new RootNode(json_decode($json, true));
+        return new RootNode(self::json_decode($json, true));
     }
 
     public static function get() {
@@ -95,5 +95,37 @@ class Structr
         }
 
         return $return;
+    }
+    
+    public static function json_decode($value)
+    {
+        $value = @json_decode($value, true);
+        $error = json_last_error();
+        
+        if ($error !== JSON_ERROR_NONE)
+        {
+            // JSON_ERROR_UTF8 is PHP >= 5.3.3
+            // Let's define it in case it isn't there
+            // to prevent notices
+            defined('JSON_ERROR_UTF8') || define('JSON_ERROR_UTF8', 5);
+            
+            switch ($error)
+            {
+            case JSON_ERROR_DEPTH:
+                throw new Exception('The maximum stack depth has been exceeded');
+            case JSON_ERROR_STATE_MISMATCH:
+                throw new Exception('Invalid or malformed JSON');
+            case JSON_ERROR_CTRL_CHAR:
+                throw new Exception('Control character error, possibly incorrectly encoded');
+            case JSON_ERROR_SYNTAX:
+                throw new Exception('Syntax error');
+            case JSON_ERROR_UTF8:
+                throw new Exception('Malformed UTF-8 characters, possibly incorrectly encoded');
+            default:
+                throw new Exception('Uknown error on json_decode');
+            }
+        }
+        
+        return $value;
     }
 }
