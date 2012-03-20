@@ -14,6 +14,8 @@ use Structr\Tree\Scalar\AnyNode;
 
 use Structr\Tree\Composite\ListNode;
 use Structr\Tree\Composite\MapNode;
+use Structr\Tree\Composite\JsonListNode;
+use Structr\Tree\Composite\JsonMapNode;
 use Structr\Tree\Composite\ChoiceNode;
 
 use Structr\Tree\DefinitionNode;
@@ -101,12 +103,30 @@ abstract class PrototypeNode extends Node
 
         return $this->_prototype;
     }
-
+    
     /**
      * @return \Structr\Tree\Composite\MapNode
      */
     public function isMap() {
         $this->_prototype = new MapNode($this);
+
+        return $this->_prototype;
+    }
+    
+    /**
+     * @return \Structr\Tree\Composite\JsonMapNode
+     */
+    public function isJsonMap() {
+        $this->_prototype = new JsonMapNode($this);
+
+        return $this->_prototype;
+    }
+    
+    /**
+     * @return \Structr\Tree\Composite\JsonListNode
+     */
+    public function isJsonList() {
+        $this->_prototype = new JsonListNode($this);
 
         return $this->_prototype;
     }
