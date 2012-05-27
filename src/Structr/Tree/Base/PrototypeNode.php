@@ -18,8 +18,6 @@ use Structr\Tree\Composite\JsonListNode;
 use Structr\Tree\Composite\JsonMapNode;
 use Structr\Tree\Composite\ChoiceNode;
 
-use Structr\Tree\DefinitionNode;
-
 abstract class PrototypeNode extends Node
 {
     /** @var \Structr\Tree\Base\Node Child node declaring type */
@@ -142,7 +140,7 @@ abstract class PrototypeNode extends Node
 
     /**
      * @param $definition string
-     * @return \Structr\Tree\DefinitionNode
+     * @return \Structr\Tree\RootNode
      */
     public function is($definition) {
         if (is_object($definition)) {

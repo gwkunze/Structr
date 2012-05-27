@@ -79,7 +79,7 @@ class Structr
 	 * example to define an input- and/or output spec for your API.
 	 * 
 	 * @param type $name
-	 * @return \Structr\Tree\DefinitionNode
+	 * @return \Structr\Tree\RootNode
 	 */
     public static function define($name = null) {
         $node = static::ize(null);
