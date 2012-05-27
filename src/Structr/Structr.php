@@ -32,7 +32,7 @@ class Structr
 	 */
     public static function izeJson($json)
 	{
-        return new RootNode(self::json_decode($json, true));
+        return self::ize(self::json_decode($json, true));
     }
 
 	/**
