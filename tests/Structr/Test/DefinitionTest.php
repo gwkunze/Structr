@@ -62,7 +62,7 @@ class DefinitionTest extends \PHPUnit_Framework_TestCase
         Structr::clearAll();
 
         $structr = Structr::define()->isInteger()->end();
-        $this->assertInstanceOf('Structr\Tree\DefinitionNode', $structr);
+        $this->assertInstanceOf('Structr\Tree\RootNode', $structr);
     }
 
 

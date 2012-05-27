@@ -4,7 +4,6 @@ namespace Structr;
 use Structr\Exception;
 
 use Structr\Tree\RootNode;
-use Structr\Tree\DefinitionNode;
 
 /**
  * Structr base class
@@ -83,7 +82,7 @@ class Structr
 	 * @return \Structr\Tree\DefinitionNode
 	 */
     public static function define($name = null) {
-        $node = new DefinitionNode();
+        $node = static::ize(null);
         if (!empty($name)) {
             self::$_definitions[$name] = $node;
         }
