@@ -6,8 +6,11 @@ use Structr\Tree\Base\ScalarNode;
 
 class NullNode extends ScalarNode
 {
-
-    public function getScalarType() {
-        return "NULL";
+    /**
+     * {@inheritdoc}
+     */
+    public function getScalarType()
+    {
+        return 'NULL';
     }
 }

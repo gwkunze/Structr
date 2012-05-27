@@ -6,8 +6,11 @@ use Structr\Tree\Base\NumberNode;
 
 class FloatNode extends NumberNode
 {
-
-    public function getScalarType() {
-        return "double";
+    /**
+     * {@inheritdoc}
+     */
+    public function getScalarType()
+    {
+        return 'double';
     }
 }
