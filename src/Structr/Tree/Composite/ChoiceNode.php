@@ -9,13 +9,30 @@ use Structr\Exception;
 
 class ChoiceNode extends Node
 {
+    /**
+     * @var array The value of this node is expected to be one of these values
+     */
     private $_alternatives = array();
 
-    public function addAlternative($alternative) {
+    /**
+     * Add an alternative
+     * 
+     * @param \Structr\Tree\RootNode $alternative A possible Structr definition
+     *     for this node
+     */
+    public function addAlternative($alternative)
+    {
         $this->_alternatives[] = $alternative;
     }
 
-    public function altPrototype() {
+    /**
+     * Add an alternative by defining it inline instead of supplying the full
+     *     definition
+     * 
+     * @return \Structr\Tree\Composite\ChoicePrototypeNode
+     */
+    public function altPrototype()
+    {
         $prototype = new ChoicePrototypeNode($this);
 
         $this->_alternatives[] = $prototype;
@@ -23,24 +40,33 @@ class ChoiceNode extends Node
         return $prototype;
     }
 
-    public function clear() {
+    /**
+     * Remove all alternatives
+     */
+    public function clear()
+    {
         $this->_alternatives = array();
     }
 
-    public function _walk_value($value) {
+    /**
+     * {@inheritdoc}
+     * @throws Structr\Exception
+     */
+    public function _walk_value($value)
+    {
         $value = parent::_walk_value($value);
 
         foreach ($this->_alternatives as $alternative) {
             try {
-                return $alternative->_walk_post($alternative
-                                                ->_walk_value(
-                                                    $alternative->_walk_pre($value)));
+                return $alternative->_walk($value);
             } catch(Exception $e) {
             }
         }
 
-        throw new Exception(
-            "No alternative matching type '" . gettype($value) . "'");
+        throw new Exception(sprintf(
+            "No alternative matching type '%s'",
+            gettype($value)
+        ));
     }
 
 }
