@@ -10,77 +10,82 @@ use Structr\Tree\RootNode;
  */
 class Structr
 {
-	/**
-	 * @var type array Map of all definitions
-	 */
+    /**
+     * @var type array Map of all definitions
+     */
     private static $_definitions = array();
 
-	/**
-	 * Structrize a given variable
-	 * @param type $variable The variable to Structrize
-	 * @return \Structr\Tree\RootNode A rootnode on which to define Structr commands
-	 */
+    /**
+     * Structr::ize a given variable
+     * 
+     * @param type $variable The variable to Structrize
+     * @return \Structr\Tree\RootNode A rootnode on which to define Structr commands
+     */
     public static function ize($variable)
 	{
         return new RootNode($variable);
     }
 
-	/**
-	 * Sturctr::ize a given JSON encode variable
-	 * @param type $json A JSON encode variable
-	 * @return \Structr\Tree\RootNode A rootnode on which to define Structr commands
-	 */
+    /**
+     * Sturctr::ize a given JSON encode variable
+     * 
+     * @param type $json A JSON encode variable
+     * @return \Structr\Tree\RootNode A rootnode on which to define Structr commands
+     */
     public static function izeJson($json)
 	{
         return self::ize(self::json_decode($json, true));
     }
 
-	/**
-	 * Structr::ize $_GET
-	 * @return \Structr\Tree\RootNode A rootnode on which to define Structr commands
-	 */
+    /**
+     * Structr::ize $_GET
+     * 
+     * @return \Structr\Tree\RootNode A rootnode on which to define Structr commands
+     */
     public static function get()
 	{
         return self::ize($_GET)->isMap();
     }
 
-	/**
-	 * Structr::ize $_POST
-	 * @return \Structr\Tree\RootNode A rootnode on which to define Structr commands
-	 */
+    /**
+     * Structr::ize $_POST
+     * 
+     * @return \Structr\Tree\RootNode A rootnode on which to define Structr commands
+     */
     public static function post()
 	{
         return self::ize($_POST)->isMap();
     }
 
-	/**
-	 * Structr::ize $_REQUEST
-	 * @return \Structr\Tree\RootNode A rootnode on which to define Structr commands
-	 */
+    /**
+     * Structr::ize $_REQUEST
+     * 
+     * @return \Structr\Tree\RootNode A rootnode on which to define Structr commands
+     */
     public static function request()
 	{
         return self::ize($_REQUEST)->isMap();
     }
 
-	/**
-	 * Structr::ize $_SESSION
-	 * @return \Structr\Tree\RootNode A rootnode on which to define Structr commands
-	 */
+    /**
+     * Structr::ize $_SESSION
+     * 
+     * @return \Structr\Tree\RootNode A rootnode on which to define Structr commands
+     */
     public static function session()
 	{
         return self::ize($_SESSION)->isMap();
     }
 
-	/**
-	 * Create a new Structr definition
-	 * A definition is first defined as you would use ize(), but 
-	 * and then can then retrieved using Structr::getDefinition so
-	 * you can pass a Structr definition around in your code. For
-	 * example to define an input- and/or output spec for your API.
-	 * 
-	 * @param type $name
-	 * @return \Structr\Tree\RootNode
-	 */
+    /**
+     * Create a new Structr definition
+     * A definition is first defined as you would use ize(), but can then be retrieved using Structr::getDefinition
+     * so you can pass a Structr definition around in your code. For example to define an input- and/or output spec
+     * for your API.
+     * 
+     * @param type $name
+     * @return \Structr\Tree\RootNode
+     */
     public static function define($name = null) {
         $node = static::ize(null);
         if (!empty($name)) {
@@ -90,9 +95,12 @@ class Structr
         return $node;
     }
 	
-	/**
+    /**
      * Given a class name, define a Structr which exports all its
      * public properties as a map.
+     * 
+     * @param string $className Name of the class to create a definition for
+     * @return \Structr\Tree\RootNode A Structr definition for the given class
      */
     public static function defineFromClass($className)
     {
@@ -110,13 +118,13 @@ class Structr
         return $structr;
     }
 	
-	/**
-	 * Get a Structr object that was defined earlier
-	 * 
-	 * @param type $name The name of definition to find
-	 * @return type 
-	 * @throws Exception
-	 */
+    /**
+     * Get a Structr object that was defined earlier
+     * 
+     * @param type $name The name of definition to find
+     * @return type 
+     * @throws Structr\Exception
+     */
 	public static function getDefinition($name) {
         if(!isset(self::$_definitions[$name])) {
             throw new Exception("Structr definition '{$name}' does not exist");
@@ -125,12 +133,12 @@ class Structr
         return self::$_definitions[$name];
     }
 
-	/**
-	 * Find Structr objects matching a search string
-	 * 
-	 * @param type $searchString The string used to find definitions
-	 * @return type array An array of definitions matching $searchString
-	 */
+    /**
+     * Find Structr objects matching a search string
+     * 
+     * @param type $searchString The string used to find definitions
+     * @return type array An array of definitions matching $searchString
+     */
     public static function getDefinitions($searchString) {
         $expression = preg_replace_callback(
             '/(?:(?<star>\*)|(?<other>[^\*]+))/',
@@ -156,22 +164,22 @@ class Structr
 		return $return;
     }
 	
-	/**
-	 * Clear all definitions defined so far
-	 */
+    /**
+     * Clear all definitions defined so far
+     */
     public static function clearAll()
 	{
         self::$_definitions = array();
     }
     
     /**
-	 * Helper function to JSON decode a variable
-	 * Throws exception on erorr; PHP's builtin json_decode doesn't do this
-	 * 
-	 * @param type $value The value to decode
-	 * @return type array A json_decode'd version of the input
-	 * @throws Exception
-	 */
+     * Helper function to JSON decode a variable
+     * Throws exception on erorr; PHP's builtin json_decode doesn't do this
+     * 
+     * @param type $value The value to decode
+     * @return type array A json_decode'd version of the input
+     * @throws Structr\Exception
+     */
     public static function json_decode($value)
     {
         $value = @json_decode($value, true);
