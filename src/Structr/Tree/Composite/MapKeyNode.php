@@ -50,11 +50,11 @@ class MapKeyNode extends PrototypeNode
 
     /**
      * Set the default value for this key. When no value is set and this node
-     *     hasn't been set explicitly to optional, this default value will
-     *     be returned.
+     * hasn't been set explicitly to optional, this default value will be
+     * returned.
      * 
-     * @param type $value
-     * @return \Structr\Tree\Composite\MapKeyNode
+     * @param mixed $value The default value
+     * @return \Structr\Tree\Composite\MapKeyNode This node
      */
     public function defaultValue($value)
     {
@@ -66,10 +66,10 @@ class MapKeyNode extends PrototypeNode
 
     /**
      * This key is optional; If the key is not provided no exception will be 
-     *    thrown.
+     * thrown.
      * 
-     * @param type $optional
-     * @return \Structr\Tree\Composite\MapKeyNode
+     * @param boolean $optional
+     * @return \Structr\Tree\Composite\MapKeyNode This node
      */
     public function optional($optional = true)
     {
@@ -100,7 +100,7 @@ class MapKeyNode extends PrototypeNode
 
     /**
      * Walk the value. Throw an exception if the value is required. If it's not
-     *     required, set it to the default value.
+     * required, set it to the default value.
      * 
      * @return string The default value, in case this node is not required
      * @throws Structr\Exception

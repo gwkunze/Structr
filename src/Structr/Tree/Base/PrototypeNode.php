@@ -186,10 +186,10 @@ abstract class PrototypeNode extends Node
 
     /**
      * The value of this is node is expected to be described by a Structr
-     *    definition defined earlier.
+     * definition defined earlier.
      * 
      * @param mixed $definition Either the name of a Struct definition defined
-     *     earlier, or a RootNode object representing a Structr tree
+     *        earlier, or a RootNode object representing a Structr tree
      * @return \Structr\Tree\RootNode
      */
     public function is($definition)
@@ -207,10 +207,10 @@ abstract class PrototypeNode extends Node
 
     /**
      * The value of this is node is expected to be described by one of a
-     *    limited list of earlier defined Structr definitions
+     * limited list of earlier defined Structr definitions
      * 
      * @param string $searchString Pattern of definitions to look for, i.e., 
-     *     app\model\*, data\*, etc
+     *        app\model\*, data\*, etc
      * @return \Structr\Tree\Composite\ChoiceNode
      */
     public function isOneOf($searchString)

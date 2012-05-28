@@ -13,7 +13,7 @@ class RootNode extends Base\PrototypeNode
      * Create a new root node
      * 
      * @param type $value Default value to check. Can be overriden by supplying
-     *     a value to the run() method of \Sturctr\Tree\Node::run() if needed
+     *        a value to the run() method of \Sturctr\Tree\Node::run() if needed
      */
     public function __construct($value)
     {

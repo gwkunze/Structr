@@ -11,15 +11,15 @@ abstract class ScalarNode extends Node
 {
     /**
      * @var boolean Whether to coerce the value of this node, i.e., cast it
-     *     to the required type if it not already of this type. 
-     * 
-     * For example, isInteger() for value "4" (string) would change it to 4 (int)
+     *      to the required type if it not already of this type. 
+     *      For example, isInteger() for value "4" (string) would change
+     *      it to 4 (int)
      */
     protected $_coerce = false;
     
     /**
      * @var bool Whether coercion should utilize strict rules (i.e. don't
-     *     coerce strings to numbers if they have letters in them)
+     *      coerce strings to numbers if they have letters in them)
      */
     protected $_coerceStrict = false;
 
@@ -78,7 +78,7 @@ abstract class ScalarNode extends Node
      * The value of this node must be coerced
      * 
      * @param type $strict Whether to use string coercion (i.e. don't
-     *     coerce strings to numbers if they have letters in them)
+     *        coerce strings to numbers if they have letters in them)
      * @return \Structr\Tree\Base\ScalarNode This node
      */
     public function coerce($strict = false)

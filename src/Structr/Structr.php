@@ -11,15 +11,17 @@ use Structr\Tree\RootNode;
 class Structr
 {
     /**
-     * @var type array Map of all definitions
+     * @var array Map of all definitions. A definition is a Struct tree that can
+     *      be referred to later, so one can for example define a Structr tree
+     *      once and then apply it to several values later.
      */
     private static $_definitions = array();
 
     /**
      * Structr::ize a given variable
      * 
-     * @param type $variable The variable to Structrize
-     * @return \Structr\Tree\RootNode A rootnode on which to define Structr commands
+     * @param mixed $variable The variable to Structr::ize
+     * @return \Structr\Tree\RootNode A RootNode to start the Structr tree with
      */
     public static function ize($variable)
 	{
@@ -30,17 +32,18 @@ class Structr
      * Sturctr::ize a given JSON encode variable
      * 
      * @param type $json A JSON encode variable
-     * @return \Structr\Tree\RootNode A rootnode on which to define Structr commands
+     * @return \Structr\Tree\RootNode A RootNode to start the Structr tree with
+     * @throws Structr\Exception
      */
     public static function izeJson($json)
 	{
-        return self::ize(self::json_decode($json, true));
+        return self::ize(self::json_decode($json));
     }
 
     /**
      * Structr::ize $_GET
      * 
-     * @return \Structr\Tree\RootNode A rootnode on which to define Structr commands
+     * @return \Structr\Tree\RootNode A RootNode to start the Structr tree with
      */
     public static function get()
 	{
@@ -50,7 +53,7 @@ class Structr
     /**
      * Structr::ize $_POST
      * 
-     * @return \Structr\Tree\RootNode A rootnode on which to define Structr commands
+     * @return \Structr\Tree\RootNode A RootNode to start the Structr tree with
      */
     public static function post()
 	{
@@ -60,7 +63,7 @@ class Structr
     /**
      * Structr::ize $_REQUEST
      * 
-     * @return \Structr\Tree\RootNode A rootnode on which to define Structr commands
+     * @return \Structr\Tree\RootNode A RootNode to start the Structr tree with
      */
     public static function request()
 	{
@@ -70,7 +73,7 @@ class Structr
     /**
      * Structr::ize $_SESSION
      * 
-     * @return \Structr\Tree\RootNode A rootnode on which to define Structr commands
+     * @return \Structr\Tree\RootNode A RootNode to start the Structr tree with
      */
     public static function session()
 	{
@@ -79,12 +82,13 @@ class Structr
 
     /**
      * Create a new Structr definition
-     * A definition is first defined as you would use ize(), but can then be retrieved using Structr::getDefinition
-     * so you can pass a Structr definition around in your code. For example to define an input- and/or output spec
-     * for your API.
+     * A definition is first defined as you would use ize(), but can then be
+     * retrieved using Structr::getDefinition so you can call upon that
+     * definitian later. For example to define an input- and/or
+     * output spec for your API.
      * 
-     * @param type $name
-     * @return \Structr\Tree\RootNode
+     * @param string $name Name of this definition
+     * @return \Structr\Tree\RootNode A RootNode to start the Structr tree with
      */
     public static function define($name = null) {
         $node = static::ize(null);
@@ -122,7 +126,7 @@ class Structr
      * Get a Structr object that was defined earlier
      * 
      * @param type $name The name of definition to find
-     * @return type 
+     * @return \Structr\Tree\RootNode The earlier defined Structr tree
      * @throws Structr\Exception
      */
 	public static function getDefinition($name) {
@@ -176,8 +180,8 @@ class Structr
      * Helper function to JSON decode a variable
      * Throws exception on erorr; PHP's builtin json_decode doesn't do this
      * 
-     * @param type $value The value to decode
-     * @return type array A json_decode'd version of the input
+     * @param string $value The value to decode
+     * @return array A json_decode'd version of the input
      * @throws Structr\Exception
      */
     public static function json_decode($value)

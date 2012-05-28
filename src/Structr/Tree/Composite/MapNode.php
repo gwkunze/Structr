@@ -25,7 +25,7 @@ class MapNode extends Node
     
     /**
      * @var boolean Whether this map should be strict. A strict map throws an
-     *     exception when there are keys it didn't expect.
+     *      exception when there are keys it didn't expect.
      */
     private $_strict = false;
 
@@ -45,7 +45,7 @@ class MapNode extends Node
 
     /**
      * Add a key-matcher to this map. Either via a callable or a
-     *    regular expression
+     * regular expression
      * 
      * @param string|callable $matcher The filter
      * @param type $name Name for the key
@@ -108,7 +108,7 @@ class MapNode extends Node
 
     /**
      * Call when this map must be strict, i.e., throw an exception when there
-     *     are keys in the input that are not described by this map
+     * are keys in the input that are not described by this map
      * 
      * @return \Structr\Tree\Composite\MapNode This node
      */
@@ -173,5 +173,4 @@ class MapNode extends Node
         
         return $return;
     }
-
 }

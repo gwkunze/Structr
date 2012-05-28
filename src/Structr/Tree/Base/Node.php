@@ -16,13 +16,13 @@ abstract class Node
     
     /**
      * @var array functions to apply to the value of this node
-     *     before checking the value of this node
+     *      before checking the value of this node
      */
     private $_pre = array();
     
     /**
      * @var array functions to apply to the value of this node
-     *     after checking the value of this node
+     *      after checking the value of this node
      */
     private $_post = array();
     
@@ -76,6 +76,7 @@ abstract class Node
 
     /**
      * Save this node in a Structr wide id for retieval later with Node::get
+     * 
      * @param string $id The key to use to store this node
      */
     public function setId($id) {
@@ -128,6 +129,7 @@ abstract class Node
      * Pre-processing callables are applied to the value of this node just
      * before the value is checked. 
      * The callables are applied in the order in which they are added.
+     * 
      * @param callable $callable A valid PHP callable
      * @return \Structr\Tree\Base\Node This node
      */
@@ -147,6 +149,7 @@ abstract class Node
      * Post-processing callables are applied to the value of this node just
      * after the value is checked. 
      * The callables are applied in the order in which they are added.
+     * 
      * @param callable $callable A valid PHP callable
      * @return \Structr\Tree\Base\Node This node
      */
@@ -163,6 +166,7 @@ abstract class Node
 
     /**
      * Return the root node of the current Structr tree
+     * 
      * @return \Structr\Tree\RootNode The root node
      */
     public function root()
@@ -176,6 +180,7 @@ abstract class Node
 
     /**
      * End the current node and go back to the parent
+     * 
      * @return type \Structr\Tree\Base\Node the parent of this node
      */
     public function end()
@@ -187,8 +192,9 @@ abstract class Node
      * Run the current Structr tree.
      * This will *ALWAYS* run the complete tree, running a Structr sub-tree is
      * not possible.
+     * 
      * @param mixed $value Optional value to check. If not given the value of the
-     *     RootNode instance this Structr is based on will be used
+     *        RootNode instance this Structr is based on will be used
      * @return mixed The result of the Structr Tree applied to the value
      */
     public function run($value = null)
@@ -207,6 +213,7 @@ abstract class Node
     /**
      * Shortcut function for _walk_pre, _walk_value, _walk_post.
      * These tree are often called in sequence, this method unclutters that a bit
+     * 
      * @param mixed $value The value to walk
      * @return mixed The result of the walk
      */
@@ -259,6 +266,7 @@ abstract class Node
 
     /**
      * Get the value of this node.
+     * 
      * @return mixed Value of this node
      */
     protected function getValue()

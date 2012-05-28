@@ -14,13 +14,13 @@ abstract class NumberNode extends ScalarNode
 {
     /**
      * @var mixed The value of this node is expected to be greater than
-     *     this value
+     *      this value
      */
     private $_gt = false;
     
     /**
      * @var mixed The value of this node is expected to be greater than or equal
-     *     to this value
+     *      to this value
      */
     private $_gte = false;
     
@@ -31,19 +31,19 @@ abstract class NumberNode extends ScalarNode
     
     /**
      * @var mixed The value of this node is expected to be less than or equal to
-     *     this value
+     *      this value
      */
     private $_lte = false;
     
     /**
      * @var bool Whether to clamp the value if it is greater than the value of
-     *    _gte
+     *      _gte
      */
     private $_clampGte = false;
     
     /**
      * @var bool Whether to clamp the value if it is less than the value of
-     *    _lte
+     *      _lte
      */
     private $_clampLte = false;
 
@@ -62,7 +62,7 @@ abstract class NumberNode extends ScalarNode
 
     /**
      * The value of this node is expected to be greater than or equal to 
-     *     a fixed value
+     * a fixed value
      * 
      * @param type $value
      * @param type $clamp
@@ -91,7 +91,7 @@ abstract class NumberNode extends ScalarNode
 
     /**
      * The value of this node is expected to be less than or equal to a
-     *     fixed value
+     * fixed value
      * 
      * @param type $value
      * @param type $clamp
@@ -124,6 +124,18 @@ abstract class NumberNode extends ScalarNode
         $this->lte($high, true);
 
         return $this;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function setType(&$value)
+    {
+        if ($this->_coerceStrict && !is_numeric($value)) {
+            return false;
+        }
+        
+        return parent::setType($value);
     }
 
     /**
@@ -206,6 +218,7 @@ abstract class NumberNode extends ScalarNode
     
     /**
      * Error: the value is too high
+     * 
      * @throws Structr\Exception
      */
     protected function tooHigh($value, $max)
@@ -219,6 +232,7 @@ abstract class NumberNode extends ScalarNode
     
     /**
      * Error: the value is too low
+     * 
      * @throws Structr\Exception
      */
     protected function tooLow($value, $min)
@@ -228,17 +242,5 @@ abstract class NumberNode extends ScalarNode
             $value,
             $min
         ));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setType(&$value)
-    {
-        if ($this->_coerceStrict && !is_numeric($value)) {
-            return false;
-        }
-        
-        return parent::setType($value);
     }
 }

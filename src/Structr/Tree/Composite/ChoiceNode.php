@@ -18,7 +18,7 @@ class ChoiceNode extends Node
      * Add an alternative
      * 
      * @param \Structr\Tree\RootNode $alternative A possible Structr definition
-     *     for this node
+     *        for this node
      */
     public function addAlternative($alternative)
     {
@@ -27,7 +27,7 @@ class ChoiceNode extends Node
 
     /**
      * Add an alternative by defining it inline instead of supplying the full
-     *     definition
+     * definition
      * 
      * @return \Structr\Tree\Composite\ChoicePrototypeNode
      */

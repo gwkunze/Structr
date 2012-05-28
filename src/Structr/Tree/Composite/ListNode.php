@@ -97,7 +97,7 @@ class ListNode extends Node
     /**
      * Check if the length of the list is within bounds
      * 
-     * @param type $length Length of the list
+     * @param int $length Length of the list
      * @throws Structr\Exception
      */
     protected function checkLength($length)

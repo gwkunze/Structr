@@ -10,7 +10,7 @@ class StringNode extends ScalarNode
 {
     /**
      * @var string The regular expression the value of this node is expected
-     *     to satify (if any)
+     *      to satify (if any)
      */
     private $_regexp = null;
     
@@ -49,8 +49,8 @@ class StringNode extends ScalarNode
      * The value of this node is expected to be part of a finite list of options
      * 
      * @param array $enum The list of options the value must be part of
-     * @param type $caseInsensitive Whether checking must be done in a
-     *     case sensitive manner
+     * @param boolean $caseInsensitive Whether checking must be done in a
+     *        case sensitive manner
      * @return \Structr\Tree\Scalar\StringNode This node
      */
     public function enum(array $enum, $caseInsensitive = true)
@@ -66,7 +66,7 @@ class StringNode extends ScalarNode
      * 
      * @param object $value The object to coerce to a string
      * @param type $strict Whether objects without a __toString object are
-     *     allowed
+     *        allowed
      * @return string Description of the object
      * @throws Exception
      */
@@ -100,7 +100,7 @@ class StringNode extends ScalarNode
     
     /**
      * Checks if the value satisfies the regular expression for this node
-     *     (if any)
+     * (if any)
      * 
      * @param type $value The value to check
      * @throws Structr\Exception
