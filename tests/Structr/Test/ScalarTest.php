@@ -108,6 +108,16 @@ class ScalarTest extends \PHPUnit_Framework_TestCase
                                   ->isDateTime()
                                   ->run(), $variable);
     }
+    
+    /**
+     * Do not create a \DateTime for the current time
+     * on null input
+     */
+    public function testNullDateTime() {
+        $this->assertSame(Structr::ize(null)
+                                  ->isDateTime()
+                                  ->run(), null);
+    }
 
     public function testDateTimeFail() {
         $this->setExpectedException('\\Structr\\Exception');
