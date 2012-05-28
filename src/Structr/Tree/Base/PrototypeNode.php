@@ -14,118 +14,187 @@ use Structr\Tree\Scalar\AnyNode;
 
 use Structr\Tree\Composite\ListNode;
 use Structr\Tree\Composite\MapNode;
+use Structr\Tree\Composite\JsonListNode;
+use Structr\Tree\Composite\JsonMapNode;
 use Structr\Tree\Composite\ChoiceNode;
-
-use Structr\Tree\DefinitionNode;
 
 abstract class PrototypeNode extends Node
 {
-    /** @var \Structr\Tree\Base\Node Child node declaring type */
+    /**
+     * @var \Structr\Tree\Base\Node Child node declaring type
+     */
     private $_prototype = null;
 
     /**
-     * @return \Structr\Tree\Base\Node
+     * Get the Prototype of this Node, i.e., the concrete
+     * implementation of a Node (e.g. IntegerNode) this PrototypeNode is wrapping
+     * 
+     * @return \Structr\Tree\Base\Node Child node declaring type
      */
-    protected function getPrototype() {
+    protected function getPrototype()
+    {
         return $this->_prototype;
     }
 
     /**
+     * The value of this node is expected to be an integer
+     * 
      * @return \Structr\Tree\Scalar\IntegerNode
      */
-    public function isInteger() {
+    public function isInteger()
+    {
         $this->_prototype = new IntegerNode($this);
 
         return $this->_prototype;
     }
 
     /**
+     * The value of this node is expected to be a float
+     * 
      * @return \Structr\Tree\Scalar\FloatNode
      */
-    public function isFloat() {
+    public function isFloat()
+    {
         $this->_prototype = new FloatNode($this);
 
         return $this->_prototype;
     }
 
     /**
+     * The value of this node is expected to be a boolean
+     * 
      * @return \Structr\Tree\Scalar\BooleanNode
      */
-    public function isBoolean() {
+    public function isBoolean()
+    {
         $this->_prototype = new BooleanNode($this);
 
         return $this->_prototype;
     }
 
     /**
+     * The value of this node is expected to be a string
+     * 
      * @return \Structr\Tree\Scalar\StringNode
      */
-    public function isString() {
+    public function isString()
+    {
         $this->_prototype = new StringNode($this);
 
         return $this->_prototype;
     }
 
     /**
+     * The value of this node is expected to be null
+     * 
      * @return \Structr\Tree\Scalar\NullNode
      */
-    public function isNull() {
+    public function isNull()
+    {
         $this->_prototype = new NullNode($this);
 
         return $this->_prototype;
     }
 
     /**
+     * The value of this node is expected to be a \DateTime
+     * 
      * @return \Structr\Tree\Scalar\DateTime
      */
-    public function isDateTime() {
+    public function isDateTime()
+    {
         $this->_prototype = new DateTimeNode($this);
 
         return $this->_prototype;
     }
 
     /**
+     * The value of this node is expected to be a float
+     * 
      * @return \Structr\Tree\Scalar\AnyNode
      */
-    public function isAny() {
+    public function isAny()
+    {
         $this->_prototype = new AnyNode($this);
 
         return $this->_prototype;
     }
 
     /**
+     * The value of this node is expected to be a list.
+     * A list is an array with default numeric keys.
+     * 
      * @return \Structr\Tree\Composite\ListNode
      */
-    public function isList() {
+    public function isList()
+    {
         $this->_prototype = new ListNode($this);
 
         return $this->_prototype;
     }
-
+    
     /**
+     * The value of this node is expected to be a map.
+     * A map is an associative array.
+     * 
      * @return \Structr\Tree\Composite\MapNode
      */
-    public function isMap() {
+    public function isMap()
+    {
         $this->_prototype = new MapNode($this);
+
+        return $this->_prototype;
+    }
+    
+    /**
+     * The value of this node is expected to be a JSON encoded list
+     * A list is an array with default numeric keys.
+     * 
+     * @return \Structr\Tree\Composite\JsonMapNode
+     */
+    public function isJsonMap()
+    {
+        $this->_prototype = new JsonMapNode($this);
+
+        return $this->_prototype;
+    }
+    
+    /**
+     * The value of this node is expected to be a JSON encoded map
+     * A map is an associative array.
+     * 
+     * @return \Structr\Tree\Composite\JsonListNode
+     */
+    public function isJsonList()
+    {
+        $this->_prototype = new JsonListNode($this);
 
         return $this->_prototype;
     }
 
     /**
+     * The value of this node is expected to be one of limited options
+     * 
      * @return \Structr\Tree\Composite\ChoiceNode
      */
-    public function isChoice() {
+    public function isChoice()
+    {
         $this->_prototype = new ChoiceNode($this);
 
         return $this->_prototype;
     }
 
     /**
-     * @param $definition string
-     * @return \Structr\Tree\DefinitionNode
+     * The value of this is node is expected to be described by a Structr
+     * definition defined earlier.
+     * 
+     * @param mixed $definition Either the name of a Struct definition defined
+     *        earlier, or a RootNode object representing a Structr tree
+     * @return \Structr\Tree\RootNode
      */
-    public function is($definition) {
-        if (is_object($definition)) {
+    public function is($definition)
+    {
+        if (is_object($definition) && $definition instanceof RootNode) {
             $this->_prototype = $definition;
         } else {
             $this->_prototype = clone Structr::getDefinition($definition);
@@ -136,12 +205,19 @@ abstract class PrototypeNode extends Node
         return $this->_prototype;
     }
 
-    public function isOneOf($searchString) {
-        $definitions = Structr::getDefinitions($searchString);
-
-        /** @var $prototype \Structr\Tree\Composite\ChoiceNode */
+    /**
+     * The value of this is node is expected to be described by one of a
+     * limited list of earlier defined Structr definitions
+     * 
+     * @param string $searchString Pattern of definitions to look for, i.e., 
+     *        app\model\*, data\*, etc
+     * @return \Structr\Tree\Composite\ChoiceNode
+     */
+    public function isOneOf($searchString)
+    {
         $this->_prototype = new ChoiceNode($this);
-
+        
+        $definitions = Structr::getDefinitions($searchString);
         foreach ($definitions as $definition) {
             $alt = clone $definition;
             $alt->setParent($this->_prototype);
@@ -151,21 +227,29 @@ abstract class PrototypeNode extends Node
         return $this->_prototype;
     }
 
-    public function end() {
-        return $this->parent();
-    }
-
-    public function _walk_value($value) {
+    /**
+     * {@inheritdoc}
+     */
+    public function _walk_value($value)
+    {
         $value = parent::_walk_value($value);
         return $this->getPrototype()->_walk_value($value);
     }
 
-    public function _walk_pre($value) {
+    /**
+     * {@inheritdoc}
+     */
+    public function _walk_pre($value)
+    {
         $value = parent::_walk_pre($value);
         return $this->getPrototype()->_walk_pre($value);
     }
 
-    public function _walk_post($value) {
+    /**
+     * {@inheritdoc}
+     */
+    public function _walk_post($value)
+    {
         $value = parent::_walk_post($value);
         return $this->getPrototype()->_walk_post($value);
     }

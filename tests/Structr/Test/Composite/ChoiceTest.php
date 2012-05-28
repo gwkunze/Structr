@@ -6,36 +6,37 @@ use Structr\Structr;
 
 class ChoiceTest extends \PHPUnit_Framework_TestCase
 {
-
-    public function testSimpleMap() {
-        $array = array(
-            3,
-            6,
-            "3.1415"
+    public function testSimpleData()
+    {
+        return array(
+            array(3, 3, true),
+            array(6, 6, true),
+            array('3.1415', 3.1415, true),
+            array('a', '', false),
+            array(array(1,2,3), '', false),
+            array(new \stdClass(), '', false)
         );
-
-        $expected = array(
-            3,
-            6,
-            3.1415
-        );
-
-        $result = Structr::ize($array)
-            ->isList()
-                ->item()
-                    ->isChoice()
-                        ->altPrototype()
-                            ->isInteger()->end()
-                        ->endPrototype()
-                        ->altPrototype()
-                            ->isFloat()->coerce()->end()
-                        ->endPrototype()
-                    ->end()
-                ->endItem()
+    }
+    
+    /**
+     * @dataProvider testSimpleData
+     */
+    public function testSimple($input, $expected, $success) {
+        if (!$success) {
+            $this->setExpectedException('\Structr\Exception');
+        }
+        
+        $result = Structr::ize($input)
+            ->isChoice()
+                ->altPrototype()
+                    ->isInteger()->end()
+                ->endPrototype()
+                ->altPrototype()
+                    ->isFloat()->coerce(true)->end()
+                ->endPrototype()
             ->end()
             ->run();
 
         $this->assertSame($expected, $result);
     }
-
 }

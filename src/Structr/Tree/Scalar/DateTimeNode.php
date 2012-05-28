@@ -2,28 +2,32 @@
 
 namespace Structr\Tree\Scalar;
 
-use Structr\Tree\Base\Node;
-
 use Structr\Exception;
+
+use Structr\Tree\Base\Node;
 
 class DateTimeNode extends Node
 {
-
-    protected function _walk_value($value) {
+    /**
+     * {@inheritdoc}
+     * throws Structr\Exception
+     */
+    protected function _walk_value($value)
+    {
         $value = parent::_walk_value($value);
 
-        if (!($value instanceof \DateTime))
+        if (!empty($value) && !($value instanceof \DateTime))
         {
-            try
-            {
+            try {
                 $value = new \DateTime($value);
-            }
-            catch (\Exception $e)
-            {
-                throw new Exception("Failed to parse DateTime from '$value'");
+            } catch (\Exception $e) {
+                throw new Exception(sprintf(
+                    "Failed to parse \DateTime from '%s'",
+                    $value
+                ));
             }
         }
+        
         return $value;
     }
-
 }

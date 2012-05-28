@@ -2,72 +2,120 @@
 
 namespace Structr\Tree\Composite;
 
-use Structr\Tree\Base\Node;
-
 use Structr\Exception;
+
+use Structr\Tree\Base\Node;
 
 class ListNode extends Node
 {
-    /** @var ListPrototypeNode */
+    /**
+     * @var Structr\Tree\Composite\ListPrototypeNode The prototype for this list
+     */
     private $_listPrototype = null;
 
-    private $_minimumSize = null;
-    private $_maximumSize = null;
+    /**
+     * @var int Minimum number of items expected in this node
+     */
+    private $_minimumLength = null;
+    
+    /**
+     * @var int Maximum number of items expected in this node
+     */
+    private $_maximumLength = null;
 
-    public function item() {
+    /**
+     * Define an item within this list
+     */
+    public function item()
+    {
         $this->_listPrototype = new ListPrototypeNode($this);
 
         return $this->_listPrototype;
     }
 
-    public function minSize($size) {
-        $this->_minimumSize = $size;
+    /**
+     * The list of this node is to have a minumum number of items
+     * 
+     * @param int $size The minimum number of items expected
+     * @return \Structr\Tree\Composite\ListNode This node
+     */
+    public function minSize($size)
+    {
+        $this->_minimumLength = $size;
 
         return $this;
     }
 
-    public function maxSize($size) {
-        $this->_maximumSize = $size;
+    /**
+     * The list of this node is to have a maximum number of items
+     * 
+     * @param int $size The maximum number of items expected
+     * @return \Structr\Tree\Composite\ListNode
+     */
+    public function maxSize($size)
+    {
+        $this->_maximumLength = $size;
 
         return $this;
     }
-
-    public function _walk_value($value = null) {
+    
+    /**
+     * {@inheritdoc}
+     * @throws Structr\Exception
+     */
+    public function _walk_value($value = null)
+    {
         $value = parent::_walk_value($value);
 
         if ($this->_listPrototype === null) {
-            throw new Exception("List without prototype");
+            throw new Exception('List without item definitions');
         }
 
         if (!is_array($value)) {
-            throw new Exception(
-                "Invalid type '"
-                . gettype($value) . "', expecting 'list' (numerical array)");
+            throw new Exception(sprintf(
+                "Invalid type '%s', expecting 'list' (numerical array)",
+                gettype($value)
+            ));
         }
-
-        $return = array();
 
         $length = count($value);
+        $this->checkLength($length, $value);
 
-        if ($this->_minimumSize !== null) {
-            if($length < $this->_minimumSize)
-                throw new Exception("List smaller than minimum size");
-        }
-
-        if ($this->_maximumSize !== null) {
-            if($length > $this->_maximumSize)
-                throw new Exception("List larger then maximum size");
-        }
-
-        for ($i = 0;$i < $length;$i++) {
-            if(!isset($value[$i]))
-                throw new Exception(
-                    "Invalid list, missing index '{$i}'. Might be a map.");
-            $return[] = $this->_listPrototype
-                ->_walk_post($this->_listPrototype
-                             ->_walk_value($this->_listPrototype
-                                           ->_walk_pre($value[$i])));
+        $return = array();
+        for ($i = 0; $i < $length; $i++) {
+            if(!isset($value[$i])) {
+                throw new Exception(sprintf(
+                    "Invalid list, missing index '%d'. Might be a map.",
+                    $i
+                ));
+            }
+            $return[] = $this->_listPrototype->_walk($value[$i]);
         }
         return $return;
+    }
+    
+    /**
+     * Check if the length of the list is within bounds
+     * 
+     * @param int $length Length of the list
+     * @throws Structr\Exception
+     */
+    protected function checkLength($length)
+    {
+        if ($this->_minimumLength !== null && $length < $this->_minimumLength) {
+            throw new Exception(sprintf(
+                "List smaller than minimum length (size='%d', min='%d')",
+                $length,
+                $this->_minimumLength
+            ));
+        }
+
+        if ($this->_maximumLength !== null && $length > $this->_maximumLength) {
+            throw new Exception(sprintf(
+                "List larger then maximum length (size='%d', max='%d')",
+                $length,
+                $this->_maximumLength
+            ));
+        }
     }
 }
