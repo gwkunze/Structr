@@ -124,6 +124,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
     
     /**
      * Test malformed JSON
+     * (should be {'a':1})
      */
     public function testMalformedJson() {
         $input = '{"a":1}}';
@@ -139,6 +140,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
     
     /**
      * Test syntax error
+     * (should be {'a':1})
      */
     public function testSyntaxError() {
         $input = '{a:1}';
