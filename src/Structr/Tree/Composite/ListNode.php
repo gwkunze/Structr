@@ -9,7 +9,7 @@ use Structr\Tree\Base\Node;
 class ListNode extends Node
 {
     /**
-     * @var Structr\Tree\Composite\ListPrototypeNode The prototype for this list
+     * @var \Structr\Tree\Composite\ListPrototypeNode The prototype for this list
      */
     private $_listPrototype = null;
 
@@ -34,7 +34,7 @@ class ListNode extends Node
     }
 
     /**
-     * The list of this node is to have a minumum number of items
+     * The list of this node is to have a minimum number of items
      * 
      * @param int $size The minimum number of items expected
      * @return \Structr\Tree\Composite\ListNode This node

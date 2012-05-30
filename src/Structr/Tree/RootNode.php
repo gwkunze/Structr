@@ -12,7 +12,7 @@ class RootNode extends Base\PrototypeNode
     /**
      * Create a new root node
      * 
-     * @param type $value Default value to check. Can be overriden by supplying
+     * @param mixed $value Default value to check. Can be overriden by supplying
      *        a value to the run() method of \Sturctr\Tree\Node::run() if needed
      */
     public function __construct($value)
@@ -22,8 +22,8 @@ class RootNode extends Base\PrototypeNode
 
     /**
      * Get the default value to check
-     * 
-     * @return type The default value to check, supplied at object create time
+     *
+     * @return mixed The default value to check, supplied at object create time
      */
     public function getValue()
     {

@@ -35,7 +35,7 @@ class StringNode extends ScalarNode
     /**
      * The value of this node is expected to satisfy a regular expression
      * 
-     * @param type $regexp The regular expression the value must satisfy
+     * @param string $regexp The regular expression the value must satisfy
      * @return \Structr\Tree\Scalar\StringNode This node
      */
     public function regexp($regexp)
@@ -65,7 +65,7 @@ class StringNode extends ScalarNode
      * Coerce an object to a string
      * 
      * @param object $value The object to coerce to a string
-     * @param type $strict Whether objects without a __toString object are
+     * @param bool $strict Whether objects without a __toString object are
      *        allowed
      * @return string Description of the object
      * @throws Exception
@@ -102,7 +102,7 @@ class StringNode extends ScalarNode
      * Checks if the value satisfies the regular expression for this node
      * (if any)
      * 
-     * @param type $value The value to check
+     * @param string $value The value to check
      * @throws Structr\Exception
      */
     protected function checkRegexp($value)
@@ -115,7 +115,7 @@ class StringNode extends ScalarNode
     /**
      * Check if the value if part of the enum for this node (if any)
      * 
-     * @param type $value The value to check
+     * @param string $value The value to check
      * @throws Structr\Exception
      */
     protected function checkEnum($value)

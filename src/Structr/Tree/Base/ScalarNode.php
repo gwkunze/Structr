@@ -77,7 +77,7 @@ abstract class ScalarNode extends Node
     /**
      * The value of this node must be coerced
      * 
-     * @param type $strict Whether to use string coercion (i.e. don't
+     * @param bool $strict Whether to use string coercion (i.e. don't
      *        coerce strings to numbers if they have letters in them)
      * @return \Structr\Tree\Base\ScalarNode This node
      */
@@ -93,7 +93,7 @@ abstract class ScalarNode extends Node
      * Coerce a value to the scalar type of this node
      * 
      * @param mixed $value The value to coerce
-     * @return bool Whether setting the value to thew new type was succesful
+     * @return bool Whether setting the value to thew new type was successful
      */
     public function setType(&$value)
     {

@@ -3,6 +3,7 @@
 namespace Structr\Tree\Base;
 
 use Structr\Structr;
+use Structr\Tree\RootNode;
 
 use Structr\Tree\Scalar\IntegerNode;
 use Structr\Tree\Scalar\FloatNode;
@@ -99,7 +100,7 @@ abstract class PrototypeNode extends Node
     /**
      * The value of this node is expected to be a \DateTime
      * 
-     * @return \Structr\Tree\Scalar\DateTime
+     * @return \Structr\Tree\Scalar\DateTimeNode
      */
     public function isDateTime()
     {
@@ -188,7 +189,7 @@ abstract class PrototypeNode extends Node
      * The value of this is node is expected to be described by a Structr
      * definition defined earlier.
      * 
-     * @param mixed $definition Either the name of a Struct definition defined
+     * @param mixed $definition Either the name of a Structr definition defined
      *        earlier, or a RootNode object representing a Structr tree
      * @return \Structr\Tree\RootNode
      */

@@ -10,7 +10,7 @@ use Structr\Exception;
 class ChoiceNode extends Node
 {
     /**
-     * @var array The value of this node is expected to be one of these values
+     * @var Node[] The value of this node is expected to be one of these values
      */
     private $_alternatives = array();
 

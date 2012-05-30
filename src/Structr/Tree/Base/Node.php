@@ -87,9 +87,9 @@ abstract class Node
     /**
      * Find a Node by a given ID
      * 
-     * @param type $id The ID of the node to find
-     * @param type $default Value to return if the ID is not registered
-     * @return type mixed Either a \Structr\Tree\Base\Node or the value of $default
+     * @param string $id The ID of the node to find
+     * @param mixed $default Value to return if the ID is not registered
+     * @return mixed Either a \Structr\Tree\Base\Node or the value of $default
      */
     public function get($id, $default = null)
     {
@@ -125,12 +125,13 @@ abstract class Node
     }
 
     /**
-     * Add a pre-processing callable to this node. 
+     * Add a pre-processing callable to this node.
      * Pre-processing callables are applied to the value of this node just
-     * before the value is checked. 
+     * before the value is checked.
      * The callables are applied in the order in which they are added.
-     * 
-     * @param callable $callable A valid PHP callable
+     *
+     * @param mixed $callable A valid PHP callable
+     * @throws \Structr\Exception
      * @return \Structr\Tree\Base\Node This node
      */
     public function pre($callable)
@@ -145,12 +146,13 @@ abstract class Node
     }
 
     /**
-     * Add a post-processing callable to this node. 
+     * Add a post-processing callable to this node.
      * Post-processing callables are applied to the value of this node just
-     * after the value is checked. 
+     * after the value is checked.
      * The callables are applied in the order in which they are added.
-     * 
-     * @param callable $callable A valid PHP callable
+     *
+     * @param mixed $callable A valid PHP callable
+     * @throws \Structr\Exception
      * @return \Structr\Tree\Base\Node This node
      */
     public function post($callable)
@@ -181,7 +183,7 @@ abstract class Node
     /**
      * End the current node and go back to the parent
      * 
-     * @return type \Structr\Tree\Base\Node the parent of this node
+     * @return \Structr\Tree\Base\Node the parent of this node
      */
     public function end()
     {
@@ -226,7 +228,7 @@ abstract class Node
     /**
      * Apply all pre-processing callables to a value
      *
-     * @param type $value The value to process
+     * @param mixed $value The value to process
      * @return mixed Result of all pre-processing callables
      */
     protected function _walk_pre($value)
@@ -241,7 +243,7 @@ abstract class Node
     /**
      * Process the current value
      * 
-     * @param type $value The value to process
+     * @param mixed $value The value to process
      * @return mixed Result of the processing
      */
     protected function _walk_value($value)
@@ -252,7 +254,7 @@ abstract class Node
     /**
      * Apply all post-processing callables to a value
      *
-     * @param type $value The value to process
+     * @param mixed $value The value to process
      * @return mixed Result of all pre-processing callables
      */
     protected function _walk_post($value)

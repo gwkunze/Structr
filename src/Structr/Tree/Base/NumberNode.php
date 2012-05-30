@@ -50,7 +50,7 @@ abstract class NumberNode extends ScalarNode
     /**
      * The value of this node is expected to be greater than a fixed value
      * 
-     * @param type $value
+     * @param number $value
      * @return \Structr\Tree\Base\NumberNode
      */
     public function gt($value)
@@ -61,11 +61,11 @@ abstract class NumberNode extends ScalarNode
     }
 
     /**
-     * The value of this node is expected to be greater than or equal to 
+     * The value of this node is expected to be greater than or equal to
      * a fixed value
-     * 
-     * @param type $value
-     * @param type $clamp
+     *
+     * @param number $value
+     * @param bool $clamp
      * @return \Structr\Tree\Base\NumberNode
      */
     public function gte($value, $clamp = false)
@@ -79,7 +79,7 @@ abstract class NumberNode extends ScalarNode
     /**
      * The value of this node is expected to be less than a fixed value
      * 
-     * @param type $value
+     * @param number $value
      * @return \Structr\Tree\Base\NumberNode
      */
     public function lt($value)
@@ -93,8 +93,8 @@ abstract class NumberNode extends ScalarNode
      * The value of this node is expected to be less than or equal to a
      * fixed value
      * 
-     * @param type $value
-     * @param type $clamp
+     * @param number $value
+     * @param bool $clamp
      * @return \Structr\Tree\Base\NumberNode
      */
     public function lte($value, $clamp = false)
@@ -106,11 +106,12 @@ abstract class NumberNode extends ScalarNode
     }
 
     /**
-     * The value of this node is expected to be between two fixed values. 
+     * The value of this node is expected to be between two fixed values.
      * If it isn't, it will be forced within the interval.
-     * 
-     * @param type $low
-     * @param type $high
+     *
+     * @param number $low
+     * @param number $high
+     * @throws \Structr\Exception
      * @return \Structr\Tree\Base\NumberNode
      */
     public function clamp($low, $high)
@@ -157,7 +158,8 @@ abstract class NumberNode extends ScalarNode
     /**
      * Check that the value is within bounds (greater than or equal)
      * 
-     * @param type $value The value to check
+     * @param number $value The value to check
+     * @return number
      * @throws Structr\Exception
      */
     protected function checkGte($value)
@@ -175,7 +177,8 @@ abstract class NumberNode extends ScalarNode
     /**
      * Check that the value is within bounds (less than or equal)
      * 
-     * @param type $value The value to check
+     * @param number $value The value to check
+     * @return number
      * @throws Structr\Exception
      */
     protected function checkLte($value)
@@ -193,7 +196,7 @@ abstract class NumberNode extends ScalarNode
     /**
      * Check that the value is within bounds (greater than)
      * 
-     * @param type $value The value to check
+     * @param number $value The value to check
      * @throws Structr\Exception
      */
     protected function checkGt($value)
@@ -206,7 +209,7 @@ abstract class NumberNode extends ScalarNode
     /**
      * Check that the value is within bounds (less than)
      * 
-     * @param type $value The value to check
+     * @param number $value The value to check
      * @throws Structr\Exception
      */
     protected function checkLt($value)

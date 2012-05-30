@@ -19,7 +19,7 @@ class MapNode extends Node
     private $_regexp_keys = array();
     
     /**
-     * @var callable A callable to filter keys 
+     * @var array A callable to filter keys
      */
     private $_callable_keys = array();
     
@@ -47,8 +47,8 @@ class MapNode extends Node
      * Add a key-matcher to this map. Either via a callable or a
      * regular expression
      * 
-     * @param string|callable $matcher The filter
-     * @param type $name Name for the key
+     * @param string|mixed $matcher The filter
+     * @param string $name Name for the key
      * @return \Structr\Tree\Composite\MapKeyNode
      */
     public function keyMatch($matcher, $name = null)
@@ -79,13 +79,13 @@ class MapNode extends Node
     /**
      * Remove a key from this map
      * 
-     * @param string $keyname The name of the key to remove
+     * @param string $keyName The name of the key to remove
      * @return \Structr\Tree\Composite\MapNode This node
      */
-    public function removeKey($keyname)
+    public function removeKey($keyName)
     {
-        if (isset($this->_keys[$keyname])) {
-            unset($this->_keys[$keyname]);
+        if (isset($this->_keys[$keyName])) {
+            unset($this->_keys[$keyName]);
         }
 
         return $this;
