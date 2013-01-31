@@ -1,20 +1,9 @@
 <?php
-
-spl_autoload_register(function($class)
-{
-    if (strpos($class, 'Structr\\Test\\') === 0) {
-        $file = __DIR__ . '/../tests/'
-                . str_replace('\\', '/', $class) . '.php';
-        if (file_exists($file)) {
-            require_once $file;
-            return true;
-        }
-    } elseif (strpos($class, 'Structr\\') === 0) {
-        $file = __DIR__ . '/../src/'
-                . str_replace('\\', '/', $class) . '.php';
-        if (file_exists($file)) {
-            require_once $file;
-            return true;
-        }
-    }
-});
+/**
+ * Copyright (c) 2012 Gijs Kunze
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+$loader = require_once __DIR__ . "/../vendor/autoload.php";
+$loader->add('Structr\\', __DIR__);

@@ -1,0 +1,20 @@
+{
+    "name": "structr/structr",
+    "description": "Validate and coerce complex data structures to conform to a specification",
+    "keywords": ["api", "json"],
+    "homepage": "http://github.com/gwkunze/Structr",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gijs Kunze",
+            "email": "gwkunze@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "autoload": {
+        "psr-0": {"Structr": "src/"}
+    }
+}
