@@ -1,4 +1,5 @@
 # Structr #
+[![Build Status](https://travis-ci.org/gwkunze/Structr.png)](https://travis-ci.org/gwkunze/Structr)
 
 With the advent of document based stores like CouchDB and MongoDB complex data structures are a lot more common within web applications. You no longer have a separate array containing a blog post and another containing all comments but a single document containing most, if not all data. The schema-less design most of these document stores use can lead to huge mess if one doesn't exercise sufficient discipline.
 
