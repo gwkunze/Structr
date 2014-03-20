@@ -10,6 +10,7 @@ namespace Structr\Tree\Base;
 
 use Structr\Structr;
 use Structr\Tree\RootNode;
+use Structr\Tree\DeferredNode;
 
 use Structr\Tree\Scalar\IntegerNode;
 use Structr\Tree\Scalar\FloatNode;
@@ -203,6 +204,8 @@ abstract class PrototypeNode extends Node
     {
         if (is_object($definition) && $definition instanceof Node) {
             $this->_prototype = $definition;
+        } else if (is_callable($definition)) {
+            $this->_prototype = new DeferredNode($definition);
         } else {
             $this->_prototype = clone Structr::getDefinition($definition);
         }
