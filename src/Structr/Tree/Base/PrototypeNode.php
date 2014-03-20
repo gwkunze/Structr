@@ -201,7 +201,7 @@ abstract class PrototypeNode extends Node
      */
     public function is($definition)
     {
-        if (is_object($definition) && $definition instanceof RootNode) {
+        if (is_object($definition) && $definition instanceof Node) {
             $this->_prototype = $definition;
         } else {
             $this->_prototype = clone Structr::getDefinition($definition);
