@@ -203,7 +203,7 @@ abstract class PrototypeNode extends Node
     public function is($definition)
     {
         if (is_object($definition) && $definition instanceof Node) {
-            $this->_prototype = $definition;
+            $this->_prototype = $definition->root();
         } else if (is_callable($definition)) {
             $this->_prototype = new DeferredNode($definition);
         } else {
