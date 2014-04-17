@@ -80,4 +80,15 @@ class DefinitionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, $structr->run(2));
     }
 
+    public function testWithDefinition()
+    {
+        Structr::clearAll();
+        $structr = Structr::define()->is(
+            Structr::define()->isInteger()->coerce()
+        );
+
+        $this->assertSame(4, $structr->run(4));
+
+    }
+
 }
