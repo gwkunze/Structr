@@ -136,7 +136,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
         $input = '{"a":1}}';
         
         $this->setExpectedException(
-            '\Structr\Exception', 'Invalid or malformed JSON'
+            '\Structr\Exception', 'Syntax error'
         );
                 
         Structr::ize($input)

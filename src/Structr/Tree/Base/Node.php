@@ -115,7 +115,7 @@ abstract class Node
      */
     public function getDescription()
     {
-        return $this->_description()
+        return $this->_description();
     }
 
     /**
