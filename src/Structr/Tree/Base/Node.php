@@ -38,6 +38,11 @@ abstract class Node
     private $_id = null;
 
     /**
+     * @var string A description of the key/value
+     */
+    private $_description;
+
+    /**
      * IDs that are currently registered on this node
      */
     private $_registeredIds = array();
@@ -88,6 +93,29 @@ abstract class Node
     public function setId($id) {
         $this->registerId($id, $this);
         $this->_id = $id;
+    }
+
+    /**
+     * Set the description of the key/value
+     *
+     * @param string $description
+     */
+    public function description($description)
+    {
+        if(!is_string($description)) {
+            throw new Exception("\$description must be a string");
+        }
+        $this->_description = $description;
+    }
+
+    /**
+     * Get the description of the key/value
+     *
+     * @return string The description
+     */
+    public function getDescription()
+    {
+        return $this->_description()
     }
 
     /**
