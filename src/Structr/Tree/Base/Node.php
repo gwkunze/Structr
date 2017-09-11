@@ -96,7 +96,8 @@ abstract class Node
     }
 
     /**
-     * Set the description of the key/value
+     * Set the description of the key/value, and return this node
+     * For use in the method-chaining syntax
      *
      * @param string $description
      */
@@ -106,6 +107,7 @@ abstract class Node
             throw new Exception("\$description must be a string");
         }
         $this->_description = $description;
+        return $this;
     }
 
     /**
@@ -115,7 +117,17 @@ abstract class Node
      */
     public function getDescription()
     {
-        return $this->_description();
+        return $this->_description;
+    }
+
+    /**
+     * Get set description of the key/value
+     *
+     * @param string $description
+     */
+    public function setDescription()
+    {
+        $this->_description = $description
     }
 
     /**
