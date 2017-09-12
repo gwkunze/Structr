@@ -125,7 +125,7 @@ abstract class Node
      *
      * @param string $description
      */
-    public function setDescription()
+    public function setDescription($description)
     {
         $this->_description = $description
     }
