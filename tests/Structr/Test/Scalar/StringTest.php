@@ -12,8 +12,8 @@ use Structr\Structr;
 
 class StringTest extends \PHPUnit_Framework_TestCase
 {
-
-    public function testRegexp() {
+    public function testRegexp()
+    {
         $string = "1991-08-06";
 
         $expected = $string;
@@ -27,7 +27,8 @@ class StringTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, $result);
     }
 
-    public function testRegexpFail() {
+    public function testRegexpFail()
+    {
         $this->setExpectedException("\\Structr\\Exception");
 
         $string = "1991/08/06";
@@ -39,7 +40,8 @@ class StringTest extends \PHPUnit_Framework_TestCase
             ->run();
     }
 
-    public function testEnum() {
+    public function testEnum()
+    {
         $string = "foo";
 
         $enum = array("foo", "bar", "baz");
@@ -55,7 +57,8 @@ class StringTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, $result);
     }
 
-    public function testEnumFail() {
+    public function testEnumFail()
+    {
         $this->setExpectedException("\\Structr\\Exception");
         $string = "foobar";
 

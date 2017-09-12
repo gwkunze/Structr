@@ -12,14 +12,15 @@ use Structr\Structr;
 
 class ScalarTest extends \PHPUnit_Framework_TestCase
 {
-
-    public function testNull() {
+    public function testNull()
+    {
         $variable = null;
 
         $this->assertSame(Structr::ize($variable)->isNull()->run(), $variable);
     }
 
-    public function testNullFail() {
+    public function testNullFail()
+    {
         $this->setExpectedException('\\Structr\\Exception');
 
         $notNull = "foo";
@@ -27,7 +28,8 @@ class ScalarTest extends \PHPUnit_Framework_TestCase
         Structr::ize($notNull)->isNull()->run();
     }
 
-    public function testInteger() {
+    public function testInteger()
+    {
         $variable = 3;
 
         $this->assertSame(Structr::ize($variable)
@@ -35,7 +37,8 @@ class ScalarTest extends \PHPUnit_Framework_TestCase
                                   ->run(), $variable);
     }
 
-    public function testIntegerFail() {
+    public function testIntegerFail()
+    {
         $this->setExpectedException('\\Structr\\Exception');
 
         $notAnInteger = 3.1415926;
@@ -43,7 +46,8 @@ class ScalarTest extends \PHPUnit_Framework_TestCase
         Structr::ize($notAnInteger)->isInteger()->run();
     }
 
-    public function testFloat() {
+    public function testFloat()
+    {
         $variable = 3.1415926;
 
         $this->assertSame(Structr::ize($variable)
@@ -51,7 +55,8 @@ class ScalarTest extends \PHPUnit_Framework_TestCase
                                   ->run(), $variable);
     }
 
-    public function testFloatFail() {
+    public function testFloatFail()
+    {
         $this->setExpectedException('\\Structr\\Exception');
 
         $notAFloat = true;
@@ -59,7 +64,8 @@ class ScalarTest extends \PHPUnit_Framework_TestCase
         Structr::ize($notAFloat)->isFloat()->run();
     }
 
-    public function testBoolean() {
+    public function testBoolean()
+    {
         $variable = true;
 
         $this->assertSame(Structr::ize($variable)
@@ -67,7 +73,8 @@ class ScalarTest extends \PHPUnit_Framework_TestCase
                                   ->run(), $variable);
     }
 
-    public function testBooleanFail() {
+    public function testBooleanFail()
+    {
         $this->setExpectedException('\\Structr\\Exception');
 
         $notABoolean = null;
@@ -75,7 +82,8 @@ class ScalarTest extends \PHPUnit_Framework_TestCase
         Structr::ize($notABoolean)->isBoolean()->run();
     }
 
-    public function testString() {
+    public function testString()
+    {
         $variable = "The quick brown fox jumps over the lazy dog";
 
         $this->assertSame(Structr::ize($variable)
@@ -83,7 +91,8 @@ class ScalarTest extends \PHPUnit_Framework_TestCase
                                   ->run(), $variable, "string == string");
     }
 
-    public function testStringFail() {
+    public function testStringFail()
+    {
         $this->setExpectedException('\\Structr\\Exception');
 
         $notAString = 3;
@@ -91,7 +100,8 @@ class ScalarTest extends \PHPUnit_Framework_TestCase
         Structr::ize($notAString)->isString()->run();
     }
 
-    public function testStringRegexp() {
+    public function testStringRegexp()
+    {
         $variable = "The quick brown fox jumps over the lazy dog";
 
         $this->assertSame($variable, Structr::ize($variable)
@@ -99,7 +109,8 @@ class ScalarTest extends \PHPUnit_Framework_TestCase
                                   ->run(), "string (regexpmatch) == string");
     }
 
-    public function testStringRegexpFail() {
+    public function testStringRegexpFail()
+    {
         $this->setExpectedException('\\Structr\\Exception');
 
         $string = "12345AB";
@@ -107,7 +118,8 @@ class ScalarTest extends \PHPUnit_Framework_TestCase
         Structr::ize($string)->isString()->regexp("/^\d{4}\w{2}$/")->run();
     }
 
-    public function testDateTime() {
+    public function testDateTime()
+    {
         $variable = new \DateTime;
 
         $this->assertSame(Structr::ize($variable)
@@ -119,19 +131,19 @@ class ScalarTest extends \PHPUnit_Framework_TestCase
      * Do not create a \DateTime for the current time
      * on null input
      */
-    public function testNullDateTime() {
+    public function testNullDateTime()
+    {
         $this->assertSame(Structr::ize(null)
                                   ->isDateTime()
                                   ->run(), null);
     }
 
-    public function testDateTimeFail() {
+    public function testDateTimeFail()
+    {
         $this->setExpectedException('\\Structr\\Exception');
 
         $notADateTime = 'fsdafsd';
 
         Structr::ize($notADateTime)->isDateTime()->run();
     }
-
-    
 }
