@@ -55,6 +55,38 @@ class MapKeyNode extends PrototypeNode
     }
 
     /**
+     * Overrides description to set the concrete node's description
+     * 
+     * @param string $description
+     * @return MapKeyNode
+     */
+    public function description($description)
+    {
+        $this->_prototype->setDescription($description);
+        return $this;
+    }
+
+    /**
+     * Overrides getDescription to return the concrete node's description
+     * 
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->_prototype->getDescription();
+    }
+
+    /**
+     * Overrides setDescription to set the concrete node's description
+     * 
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->_prototype->setDescription($description);
+    }
+
+    /**
      * Set the default value for this key. When no value is set and this node
      * hasn't been set explicitly to optional, this default value will be
      * returned.

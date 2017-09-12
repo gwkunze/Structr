@@ -100,6 +100,7 @@ abstract class Node
      * For use in the method-chaining syntax
      *
      * @param string $description
+     * @return Node
      */
     public function description($description)
     {
