@@ -12,17 +12,20 @@ use Structr\Structr;
 
 class AnyTest extends \PHPUnit_Framework_TestCase
 {
-    public function testScalar() {
+    public function testScalar()
+    {
         $value = 34;
         $this->assertSame($value, Structr::ize($value)->isAny()->run());
     }
 
-    public function testNull() {
-        $value = NULL;
+    public function testNull()
+    {
+        $value = null;
         $this->assertSame($value, Structr::ize($value)->isAny()->run());
     }
 
-    public function testComplex() {
+    public function testComplex()
+    {
         $value = array(
             1,
             34,

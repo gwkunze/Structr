@@ -12,8 +12,8 @@ use Structr\Structr;
 
 class NodeIdTest extends \PHPUnit_Framework_TestCase
 {
-
-    public function testSimpleId() {
+    public function testSimpleId()
+    {
         $array = array(1, 2, "3");
 
         $expected = array(1, 2, 3);
@@ -32,5 +32,4 @@ class NodeIdTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($expected, $result);
     }
-
 }

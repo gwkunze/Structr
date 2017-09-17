@@ -38,13 +38,18 @@ abstract class Node
     private $_id = null;
 
     /**
+     * @var string A description of the key/value
+     */
+    private $_description;
+
+    /**
      * IDs that are currently registered on this node
      */
     private $_registeredIds = array();
 
     /**
      * Create a new node
-     * 
+     *
      * @param \Structr\Tree\Base\Node Parent of this node
      */
     public function __construct($parent)
@@ -62,7 +67,7 @@ abstract class Node
 
     /**
      * Register an ID for this node to find it back later with Node::get()
-     * 
+     *
      * @param string $id The id to store the node in
      * @param \Structr\Tree\Base\Node $value The Node to store for this ID
      * @throws Structr\Exception
@@ -82,17 +87,54 @@ abstract class Node
 
     /**
      * Save this node in a Structr wide id for retieval later with Node::get
-     * 
+     *
      * @param string $id The key to use to store this node
      */
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->registerId($id, $this);
         $this->_id = $id;
     }
 
     /**
+     * Set the description of the key/value, and return this node
+     * For use in the method-chaining syntax
+     *
+     * @param string $description
+     * @return Node
+     */
+    public function description($description)
+    {
+        if (!is_string($description)) {
+            throw new Exception("\$description must be a string");
+        }
+        $this->_description = $description;
+        return $this;
+    }
+
+    /**
+     * Get the description of the key/value
+     *
+     * @return string The description
+     */
+    public function getDescription()
+    {
+        return $this->_description;
+    }
+
+    /**
+     * Get set description of the key/value
+     *
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->_description = $description;
+    }
+
+    /**
      * Find a Node by a given ID
-     * 
+     *
      * @param string $id The ID of the node to find
      * @param mixed $default Value to return if the ID is not registered
      * @return mixed Either a \Structr\Tree\Base\Node or the value of $default
@@ -112,7 +154,7 @@ abstract class Node
 
     /**
      * Get the parent of this node
-     * 
+     *
      * @return \Structr\Tree\Base\Node the parent node of this node
      */
     public function parent()
@@ -122,7 +164,7 @@ abstract class Node
 
     /**
      * Set the parent node for this node
-     * 
+     *
      * @param \Structr\Tree\Base\Node $parent
      */
     public function setParent(Node $parent)
@@ -145,7 +187,7 @@ abstract class Node
         if (is_callable($callable, false)) {
             $this->_pre[] = $callable;
         } else {
-           throw new Exception('Invalid callable supplied to Node::pre()');
+            throw new Exception('Invalid callable supplied to Node::pre()');
         }
 
         return $this;
@@ -166,7 +208,7 @@ abstract class Node
         if (is_callable($callable, false)) {
             $this->_post[] = $callable;
         } else {
-           throw new Exception('Invalid callable supplied to Node::post()');
+            throw new Exception('Invalid callable supplied to Node::post()');
         }
 
         return $this;
@@ -174,7 +216,7 @@ abstract class Node
 
     /**
      * Return the root node of the current Structr tree
-     * 
+     *
      * @return \Structr\Tree\RootNode The root node
      */
     public function root()
@@ -188,7 +230,7 @@ abstract class Node
 
     /**
      * End the current node and go back to the parent
-     * 
+     *
      * @return \Structr\Tree\Base\Node the parent of this node
      */
     public function end()
@@ -200,7 +242,7 @@ abstract class Node
      * Run the current Structr tree.
      * This will *ALWAYS* run the complete tree, running a Structr sub-tree is
      * not possible.
-     * 
+     *
      * @param mixed $value Optional value to check. If not given the value of the
      *        RootNode instance this Structr is based on will be used
      * @return mixed The result of the Structr Tree applied to the value
@@ -221,7 +263,7 @@ abstract class Node
     /**
      * Shortcut function for _walk_pre, _walk_value, _walk_post.
      * These tree are often called in sequence, this method unclutters that a bit
-     * 
+     *
      * @param mixed $value The value to walk
      * @return mixed The result of the walk
      */
@@ -248,7 +290,7 @@ abstract class Node
     
     /**
      * Process the current value
-     * 
+     *
      * @param mixed $value The value to process
      * @return mixed Result of the processing
      */
@@ -274,7 +316,7 @@ abstract class Node
 
     /**
      * Get the value of this node.
-     * 
+     *
      * @return mixed Value of this node
      */
     protected function getValue()

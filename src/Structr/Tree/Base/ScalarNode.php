@@ -17,7 +17,7 @@ abstract class ScalarNode extends Node
 {
     /**
      * @var boolean Whether to coerce the value of this node, i.e., cast it
-     *      to the required type if it not already of this type. 
+     *      to the required type if it not already of this type.
      *      For example, isInteger() for value "4" (string) would change
      *      it to 4 (int)
      */
@@ -31,12 +31,13 @@ abstract class ScalarNode extends Node
 
     /**
      * Coerce the value of this node to match the scalar type of this node
-     * 
+     *
      * @param mixed $value The value to be coerced
      * @return mixed Coercion result
      * @throws Structr\Exception
      */
-    protected function coerceValue($value) {
+    protected function coerceValue($value)
+    {
         if ($this->_coerce === false) {
             return $value;
         }
@@ -67,12 +68,12 @@ abstract class ScalarNode extends Node
     /**
      * Get the scalar type for this node (i.e., integer, string, etc)
      */
-    public abstract function getScalarType();
+    abstract public function getScalarType();
 
     /**
      * The value of this node must be strictly coerced
      * Same as calling coerce with parameter true
-     * 
+     *
      * @return \Structr\Tree\Base\ScalarNode This node
      */
     public function strict()
@@ -82,7 +83,7 @@ abstract class ScalarNode extends Node
     
     /**
      * The value of this node must be coerced
-     * 
+     *
      * @param bool $strict Whether to use string coercion (i.e. don't
      *        coerce strings to numbers if they have letters in them)
      * @return \Structr\Tree\Base\ScalarNode This node
@@ -97,7 +98,7 @@ abstract class ScalarNode extends Node
 
     /**
      * Coerce a value to the scalar type of this node
-     * 
+     *
      * @param mixed $value The value to coerce
      * @return bool Whether setting the value to thew new type was successful
      */

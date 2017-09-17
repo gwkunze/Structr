@@ -117,7 +117,9 @@ class Structr
     public static function defineFromClass($className)
     {
         $structr = static::define($className)
-            ->pre(function($s) { return (array) $s; })
+            ->pre(function ($s) {
+                return (array) $s;
+            })
             ->isMap();
 
         $reflect = new \ReflectionClass($className);
@@ -155,8 +157,7 @@ class Structr
     {
         $expression = preg_replace_callback(
             '/(?:(?<star>\*)|(?<other>[^\*]+))/',
-            function($match)
-            {
+            function ($match) {
                 if (!empty($match['star'])) {
                     return '(.*)';
                 }

@@ -36,7 +36,7 @@ abstract class PrototypeNode extends Node
     /**
      * Get the Prototype of this Node, i.e., the concrete
      * implementation of a Node (e.g. IntegerNode) this PrototypeNode is wrapping
-     * 
+     *
      * @return \Structr\Tree\Base\Node Child node declaring type
      */
     protected function getPrototype()
@@ -46,7 +46,7 @@ abstract class PrototypeNode extends Node
 
     /**
      * The value of this node is expected to be an integer
-     * 
+     *
      * @return \Structr\Tree\Scalar\IntegerNode
      */
     public function isInteger()
@@ -58,7 +58,7 @@ abstract class PrototypeNode extends Node
 
     /**
      * The value of this node is expected to be a float
-     * 
+     *
      * @return \Structr\Tree\Scalar\FloatNode
      */
     public function isFloat()
@@ -70,7 +70,7 @@ abstract class PrototypeNode extends Node
 
     /**
      * The value of this node is expected to be a boolean
-     * 
+     *
      * @return \Structr\Tree\Scalar\BooleanNode
      */
     public function isBoolean()
@@ -82,7 +82,7 @@ abstract class PrototypeNode extends Node
 
     /**
      * The value of this node is expected to be a string
-     * 
+     *
      * @return \Structr\Tree\Scalar\StringNode
      */
     public function isString()
@@ -94,7 +94,7 @@ abstract class PrototypeNode extends Node
 
     /**
      * The value of this node is expected to be null
-     * 
+     *
      * @return \Structr\Tree\Scalar\NullNode
      */
     public function isNull()
@@ -106,7 +106,7 @@ abstract class PrototypeNode extends Node
 
     /**
      * The value of this node is expected to be a \DateTime
-     * 
+     *
      * @return \Structr\Tree\Scalar\DateTimeNode
      */
     public function isDateTime()
@@ -118,7 +118,7 @@ abstract class PrototypeNode extends Node
 
     /**
      * The value of this node is expected to be a float
-     * 
+     *
      * @return \Structr\Tree\Scalar\AnyNode
      */
     public function isAny()
@@ -131,7 +131,7 @@ abstract class PrototypeNode extends Node
     /**
      * The value of this node is expected to be a list.
      * A list is an array with default numeric keys.
-     * 
+     *
      * @return \Structr\Tree\Composite\ListNode
      */
     public function isList()
@@ -144,7 +144,7 @@ abstract class PrototypeNode extends Node
     /**
      * The value of this node is expected to be a map.
      * A map is an associative array.
-     * 
+     *
      * @return \Structr\Tree\Composite\MapNode
      */
     public function isMap()
@@ -157,7 +157,7 @@ abstract class PrototypeNode extends Node
     /**
      * The value of this node is expected to be a JSON encoded list
      * A list is an array with default numeric keys.
-     * 
+     *
      * @return \Structr\Tree\Composite\JsonMapNode
      */
     public function isJsonMap()
@@ -170,7 +170,7 @@ abstract class PrototypeNode extends Node
     /**
      * The value of this node is expected to be a JSON encoded map
      * A map is an associative array.
-     * 
+     *
      * @return \Structr\Tree\Composite\JsonListNode
      */
     public function isJsonList()
@@ -182,7 +182,7 @@ abstract class PrototypeNode extends Node
 
     /**
      * The value of this node is expected to be one of limited options
-     * 
+     *
      * @return \Structr\Tree\Composite\ChoiceNode
      */
     public function isChoice()
@@ -195,7 +195,7 @@ abstract class PrototypeNode extends Node
     /**
      * The value of this is node is expected to be described by a Structr
      * definition defined earlier.
-     * 
+     *
      * @param mixed $definition Either the name of a Structr definition defined
      *        earlier, or a RootNode object representing a Structr tree
      * @return \Structr\Tree\RootNode
@@ -204,7 +204,7 @@ abstract class PrototypeNode extends Node
     {
         if (is_object($definition) && $definition instanceof Node) {
             $this->_prototype = $definition->root();
-        } else if (is_callable($definition)) {
+        } elseif (is_callable($definition)) {
             $this->_prototype = new DeferredNode($definition);
         } else {
             $this->_prototype = clone Structr::getDefinition($definition);
@@ -218,8 +218,8 @@ abstract class PrototypeNode extends Node
     /**
      * The value of this is node is expected to be described by one of a
      * limited list of earlier defined Structr definitions
-     * 
-     * @param string $searchString Pattern of definitions to look for, i.e., 
+     *
+     * @param string $searchString Pattern of definitions to look for, i.e.,
      *        app\model\*, data\*, etc
      * @return \Structr\Tree\Composite\ChoiceNode
      */
