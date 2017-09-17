@@ -24,6 +24,18 @@ class StringNode extends ScalarNode
      * @var array The list of enum options to check for (if any)
      */
     private $_enum = null;
+
+    /**
+     * @var mixed The string length of this node is expected to be longer
+     * than this value
+     */
+    private $_minLength = false;
+
+    /**
+     * @var mixed The string length of this node is expected to be shorter
+     * than this value
+     */
+    private $_maxLength = false;
     
     /**
      * @var bool Whether to do case sensitive enum checking
@@ -68,6 +80,49 @@ class StringNode extends ScalarNode
     }
 
     /**
+     * The length of the string value of this node is expected to be equal to
+     * a fixed value
+     *
+     * @param number $value
+     * @return \Structr\Tree\Scalar\StringNode This node
+     */
+    public function length($value)
+    {
+        $this->_minLength = $value;
+        $this->_maxLength = $value;
+
+        return $this;
+    }
+
+    /**
+     * The length of the string value of this node is expected to be greater
+     * than a fixed value
+     *
+     * @param number $value
+     * @return \Structr\Tree\Scalar\StringNode This node
+     */
+    public function minLength($value)
+    {
+        $this->_minLength = $value;
+
+        return $this;
+    }
+
+    /**
+     * The length of the string value of this node is expected to be less than
+     * a fixed value
+     *
+     * @param number $value
+     * @return \Structr\Tree\Scalar\StringNode This node
+     */
+    public function maxLength($value)
+    {
+        $this->_maxLength = $value;
+
+        return $this;
+    }
+
+    /**
      * Coerce an object to a string
      * 
      * @param object $value The object to coerce to a string
@@ -100,7 +155,9 @@ class StringNode extends ScalarNode
 
         $this->checkRegexp($value);
         $this->checkEnum($value);
-        
+        $this->checkMinLength($value);
+        $this->checkMaxLength($value);
+
         return $value;
     }
     
@@ -138,5 +195,61 @@ class StringNode extends ScalarNode
                 throw new Exception("'{$value}' not part of enum");
             }
         }
+    }
+
+    /**
+     * Check that the string length is within bounds (longer than)
+     *
+     * @param number $value The value to check
+     * @throws Structr\Exception
+     */
+    protected function checkMinLength($value)
+    {
+        if ($this->_minLength && strlen($value) < $this->_minLength) {
+            $this->tooShort($value, $this->_minLength);
+        }
+    }
+
+    /**
+     * Check that the string length is within bounds (shorter than)
+     *
+     * @param number $value The value to check
+     * @throws Structr\Exception
+     */
+    protected function checkMaxLength($value)
+    {
+        if ($this->_maxLength && strlen($value) > $this->_maxLength) {
+            $this->tooLong($value, $this->_maxLength);
+        }
+    }
+
+    /**
+     * Error: the string is too short
+     *
+     * @throws Structr\Exception
+     */
+    protected function tooShort($value, $min)
+    {
+        throw new Exception(sprintf(
+            "Length of string '%s' (%d) is shorter than allowed (%d)",
+            $value,
+            strlen($value),
+            $min
+        ));
+    }
+
+    /**
+     * Error: the string is too long
+     *
+     * @throws Structr\Exception
+     */
+    protected function tooLong($value, $min)
+    {
+        throw new Exception(sprintf(
+            "Length of string '%s' (%d) is longer than allowed (%d)",
+            $value,
+            strlen($value),
+            $min
+        ));
     }
 }

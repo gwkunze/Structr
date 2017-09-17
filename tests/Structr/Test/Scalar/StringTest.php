@@ -69,4 +69,86 @@ class StringTest extends \PHPUnit_Framework_TestCase
             ->end()
             ->run();
     }
+
+    public function testMaxLength()
+    {
+        $string = 'foo';
+
+        $result = Structr::ize($string)
+            ->isString()->maxLength(4)->end()
+            ->run();
+
+        $this->assertSame($result, $string);
+    }
+
+    /**
+     * @expectedException \Structr\Exception
+     */
+    public function testMaxLengthFail()
+    {
+        $string = 'foobar';
+
+        Structr::ize($string)
+            ->isString()->maxLength(4)->end()
+            ->run();
+    }
+
+    public function testMinLength()
+    {
+        $string = 'foobar';
+
+        $result = Structr::ize($string)
+            ->isString()->minLength(4)->end()
+            ->run();
+
+        $this->assertSame($result, $string);
+    }
+
+    /**
+     * @expectedException \Structr\Exception
+     */
+    public function testMinLengthFail()
+    {
+        $string = 'foo';
+
+        Structr::ize($string)
+            ->isString()->minLength(4)->end()
+            ->run();
+    }
+
+
+    public function testLength()
+    {
+        $string = 'foobar';
+
+        $result = Structr::ize($string)
+            ->isString()->length(6)->end()
+            ->run();
+
+        $this->assertSame($result, $string);
+    }
+
+    /**
+     * @expectedException \Structr\Exception
+     */
+    public function testLengthFailToShort()
+    {
+        $string = 'foo';
+
+        Structr::ize($string)
+            ->isString()->length(6)->end()
+            ->run();
+    }
+
+    /**
+     * @expectedException \Structr\Exception
+     */
+    public function testLengthFailToLong()
+    {
+        $string = 'foobarbaz';
+
+        Structr::ize($string)
+            ->isString()->length(6)->end()
+            ->run();
+    }
 }
