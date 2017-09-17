@@ -12,18 +12,20 @@ use Structr\Structr;
 
 class DeferredTest extends \PHPUnit_Framework_TestCase
 {
-    public function testDeferredSuccess() {
+    public function testDeferredSuccess()
+    {
         Structr::clearAll();
-        $structr = Structr::ize('foo')->is(function() {
+        $structr = Structr::ize('foo')->is(function () {
             return Structr::define()->isString()->enum(array('foo', 'baz', 'bar'))->coerce();
         });
 
         $this->assertSame('foo', $structr->run());
     }
 
-    public function testDeferredFail() {
+    public function testDeferredFail()
+    {
         Structr::clearAll();
-        $structr = Structr::ize('ban')->is(function() {
+        $structr = Structr::ize('ban')->is(function () {
             return Structr::define()->isString()->enum(array('foo', 'baz', 'bar'))->coerce();
         });
 
@@ -31,9 +33,12 @@ class DeferredTest extends \PHPUnit_Framework_TestCase
         $structr->run();
     }
 
-    public function testDeferredInvalidReturnType() {
+    public function testDeferredInvalidReturnType()
+    {
         Structr::clearAll();
-        $structr = Structr::ize(4)->is(function() { return new \stdClass(); });
+        $structr = Structr::ize(4)->is(function () {
+            return new \stdClass();
+        });
 
         $this->setExpectedException(
             'Structr\Exception',

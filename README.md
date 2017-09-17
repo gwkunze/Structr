@@ -1,5 +1,4 @@
 # Structr #
-[![Build Status](https://travis-ci.org/gwkunze/Structr.png)](https://travis-ci.org/gwkunze/Structr)
 
 With the advent of document based stores like CouchDB and MongoDB complex data structures are a lot more common within web applications. You no longer have a separate array containing a blog post and another containing all comments but a single document containing most, if not all data. The schema-less design most of these document stores use can lead to huge mess if one doesn't exercise sufficient discipline.
 
@@ -7,6 +6,11 @@ With Structr you can define the format of these documents within your applicatio
 
 Besides complex documents Structr can be used to parse most PHP data such as request parameters, for example you can use it to define valid values for a paging GET parameter.
 
+# Structr at Gold Republic #
+
+This version of Structr is a fork of an end-of-life library created by gwkunze: https://github.com/gwkunze/Structr
+
+Gold republic began using analysis of Structr definitions to generate documentation for the Octopus API, and in order to facilitate that, began extending the original Structr library to track additional meta-data.
 
 Example
 =======

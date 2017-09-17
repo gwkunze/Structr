@@ -15,7 +15,8 @@ class JsonTest extends \PHPUnit_Framework_TestCase
     /**
      * Simple integer list, json_encoded.
      */
-    public function testSimpleJsonListIntegers() {
+    public function testSimpleJsonListIntegers()
+    {
         $array = array(1, 2, 3, 4, 5);
         $input = json_encode($array);
         
@@ -32,7 +33,8 @@ class JsonTest extends \PHPUnit_Framework_TestCase
     /**
      * Simple string list, json_encoded.
      */
-    public function testSimpleJsonListStrings() {
+    public function testSimpleJsonListStrings()
+    {
         $array = array('a', 'b', 'c', 'd', 'e');
         $input = json_encode($array);
         
@@ -49,7 +51,8 @@ class JsonTest extends \PHPUnit_Framework_TestCase
     /**
      * Simple mixed map
      */
-    public function testSimpleJsonMap() {
+    public function testSimpleJsonMap()
+    {
         $array = array('a' => 1, 'b' => 3.14, 'c' => 'c');
         $input = json_encode($array);
         
@@ -61,13 +64,13 @@ class JsonTest extends \PHPUnit_Framework_TestCase
                 ->run();
         
         $this->assertSame($array, $result);
-        
     }
     
     /**
      * Nested array
      */
-    public function testNestedJson() {
+    public function testNestedJson()
+    {
         $array = array(1, 2, 3, 4, 5, array(1, 2, 3));
         $input = json_encode($array);
         
@@ -110,7 +113,8 @@ class JsonTest extends \PHPUnit_Framework_TestCase
     /**
      * Use ::define() instead of ::ize
      */
-    public function testDefined() {
+    public function testDefined()
+    {
         Structr::clearAll();
         
         $array = array(1, 2, 3, 4, 5);
@@ -132,11 +136,14 @@ class JsonTest extends \PHPUnit_Framework_TestCase
      * Test malformed JSON
      * (should be {'a':1})
      */
-    public function testMalformedJson() {
+    public function testMalformedJson()
+    {
         $input = '{"a":1}}';
         
         $this->setExpectedException(
-            '\Structr\Exception', 'Invalid or malformed JSON'
+            '\Structr\Exception',
+        
+            'Syntax error'
         );
                 
         Structr::ize($input)
@@ -148,17 +155,18 @@ class JsonTest extends \PHPUnit_Framework_TestCase
      * Test syntax error
      * (should be {'a':1})
      */
-    public function testSyntaxError() {
+    public function testSyntaxError()
+    {
         $input = '{a:1}';
         
         $this->setExpectedException(
-            '\Structr\Exception', 'Syntax error'
+            '\Structr\Exception',
+        
+            'Syntax error'
         );
                 
         Structr::ize($input)
             ->isJsonMap()
             ->run();
     }
-    
-    
 }

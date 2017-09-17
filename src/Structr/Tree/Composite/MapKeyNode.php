@@ -36,7 +36,7 @@ class MapKeyNode extends PrototypeNode
 
     /**
      * Set the name of this key
-     * 
+     *
      * @param string $name The name
      */
     public function setName($name)
@@ -46,8 +46,8 @@ class MapKeyNode extends PrototypeNode
 
     /**
      * Get the name of this key
-     * 
-     * @return string The name 
+     *
+     * @return string The name
      */
     public function getName()
     {
@@ -55,10 +55,42 @@ class MapKeyNode extends PrototypeNode
     }
 
     /**
+     * Overrides description to set the concrete node's description
+     *
+     * @param string $description
+     * @return MapKeyNode
+     */
+    public function description($description)
+    {
+        $this->_prototype->setDescription($description);
+        return $this;
+    }
+
+    /**
+     * Overrides getDescription to return the concrete node's description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->_prototype->getDescription();
+    }
+
+    /**
+     * Overrides setDescription to set the concrete node's description
+     *
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->_prototype->setDescription($description);
+    }
+
+    /**
      * Set the default value for this key. When no value is set and this node
      * hasn't been set explicitly to optional, this default value will be
      * returned.
-     * 
+     *
      * @param mixed $value The default value
      * @return \Structr\Tree\Composite\MapKeyNode This node
      */
@@ -71,9 +103,9 @@ class MapKeyNode extends PrototypeNode
     }
 
     /**
-     * This key is optional; If the key is not provided no exception will be 
+     * This key is optional; If the key is not provided no exception will be
      * thrown.
-     * 
+     *
      * @param boolean $optional
      * @return \Structr\Tree\Composite\MapKeyNode This node
      */
@@ -86,7 +118,7 @@ class MapKeyNode extends PrototypeNode
 
     /**
      * Whether this key is optional
-     * 
+     *
      * @return boolean
      */
     public function isOptional()
@@ -96,7 +128,7 @@ class MapKeyNode extends PrototypeNode
 
     /**
      * Jump back to the parent
-     * 
+     *
      * @return \Structr\Tree\Base\Node the parent node
      */
     public function endKey()
@@ -107,7 +139,7 @@ class MapKeyNode extends PrototypeNode
     /**
      * Walk the value. Throw an exception if the value is required. If it's not
      * required, set it to the default value.
-     * 
+     *
      * @return string The default value, in case this node is not required
      * @throws Structr\Exception
      */

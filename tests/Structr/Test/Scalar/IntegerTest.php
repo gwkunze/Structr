@@ -12,8 +12,8 @@ use Structr\Structr;
 
 class IntegerTest extends \PHPUnit_Framework_TestCase
 {
-
-    public function testCompare() {
+    public function testCompare()
+    {
         $value = 3;
 
         $expected = $value;
@@ -33,7 +33,8 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
                                            ->run());
     }
 
-    public function testClamp() {
+    public function testClamp()
+    {
         $array = array(
             "gte" => 5,
             "lte" => 5,

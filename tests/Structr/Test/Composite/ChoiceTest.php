@@ -27,7 +27,8 @@ class ChoiceTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider testSimpleData
      */
-    public function testSimple($input, $expected, $success) {
+    public function testSimple($input, $expected, $success)
+    {
         if (!$success) {
             $this->setExpectedException('\Structr\Exception');
         }
