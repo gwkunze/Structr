@@ -12,15 +12,15 @@ use Structr\Structr;
 
 class PostTest extends \PHPUnit_Framework_TestCase
 {
-
-    public function testSimplePostProcessing() {
+    public function testSimplePostProcessing()
+    {
         $value = 3;
 
         $expected = 4;
 
         $result = Structr::ize($value)
             ->isInteger()
-                ->post(function($v) {
+                ->post(function ($v) {
                     return $v + 1;
                 })
             ->end()
@@ -29,7 +29,8 @@ class PostTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, $result);
     }
 
-    public function testMap() {
+    public function testMap()
+    {
         $array = array(
             "id" => 123,
             "items" => array(1,2,3),
@@ -48,7 +49,7 @@ class PostTest extends \PHPUnit_Framework_TestCase
                 ->strict()
                 ->key("id")
                     ->isInteger()->end()
-                    ->post(function($v) {
+                    ->post(function ($v) {
                         return sprintf("ID-%08d", $v);
                     })
                 ->endKey()
@@ -56,24 +57,25 @@ class PostTest extends \PHPUnit_Framework_TestCase
                     ->isList()
                         ->item()
                             ->isInteger()
-                            ->post(function($v) {
+                            ->post(function ($v) {
                                 return $v * $v;
                             })
                             ->end()
                         ->endItem()
                     ->end()
-                    ->post(function($v) {
+                    ->post(function ($v) {
                         return array_reverse($v);
                     })
                 ->endKey()
                 ->key("foo")
                     ->isString()->end()
-                    ->post(function($v) {
+                    ->post(function ($v) {
                         return str_repeat($v, 3);
                     })
                 ->endKey()
-                ->post(function($v) {
-                    $v["ban"] = "baz"; return $v;
+                ->post(function ($v) {
+                    $v["ban"] = "baz";
+                    return $v;
                 })
             ->end()
             ->run();

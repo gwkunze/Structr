@@ -22,7 +22,7 @@ class ChoiceNode extends Node
 
     /**
      * Add an alternative
-     * 
+     *
      * @param \Structr\Tree\RootNode $alternative A possible Structr definition
      *        for this node
      */
@@ -34,7 +34,7 @@ class ChoiceNode extends Node
     /**
      * Add an alternative by defining it inline instead of supplying the full
      * definition
-     * 
+     *
      * @return \Structr\Tree\Composite\ChoicePrototypeNode
      */
     public function altPrototype()
@@ -65,7 +65,7 @@ class ChoiceNode extends Node
         foreach ($this->_alternatives as $alternative) {
             try {
                 return $alternative->_walk($value);
-            } catch(Exception $e) {
+            } catch (Exception $e) {
             }
         }
 
@@ -74,5 +74,4 @@ class ChoiceNode extends Node
             gettype($value)
         ));
     }
-
 }

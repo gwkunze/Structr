@@ -12,8 +12,8 @@ use Structr\Structr;
 
 class DefinitionTest extends \PHPUnit_Framework_TestCase
 {
-
-    public function testSimpleDefinition() {
+    public function testSimpleDefinition()
+    {
         Structr::clearAll();
 
         Structr::define("test")->isInteger()->coerce()->end();
@@ -25,7 +25,8 @@ class DefinitionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, $result);
     }
 
-    public function testMultiDefinition() {
+    public function testMultiDefinition()
+    {
         Structr::clearAll();
 
         Structr::define("data/integer")->isInteger();
@@ -50,10 +51,13 @@ class DefinitionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, $result);
     }
 
-    public function testDefinitionClosure() {
+    public function testDefinitionClosure()
+    {
         Structr::clearAll();
 
-        Structr::define("foo")->isInteger()->post(function($v) { return $v * 2; });
+        Structr::define("foo")->isInteger()->post(function ($v) {
+            return $v * 2;
+        });
 
         $value = 3;
 
@@ -64,7 +68,8 @@ class DefinitionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, $result);
     }
 
-    public function testEmptyDefinition() {
+    public function testEmptyDefinition()
+    {
         Structr::clearAll();
 
         $structr = Structr::define()->isInteger()->end();
@@ -72,7 +77,8 @@ class DefinitionTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    public function testRunWithValue() {
+    public function testRunWithValue()
+    {
         Structr::clearAll();
         $structr = Structr::define()->isInteger()->end();
 
@@ -88,7 +94,5 @@ class DefinitionTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertSame(4, $structr->run(4));
-
     }
-
 }

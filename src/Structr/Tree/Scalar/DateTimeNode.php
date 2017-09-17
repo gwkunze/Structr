@@ -22,8 +22,7 @@ class DateTimeNode extends Node
     {
         $value = parent::_walk_value($value);
 
-        if (!empty($value) && !($value instanceof \DateTime))
-        {
+        if (!empty($value) && !($value instanceof \DateTime)) {
             try {
                 $value = new \DateTime($value);
             } catch (\Exception $e) {

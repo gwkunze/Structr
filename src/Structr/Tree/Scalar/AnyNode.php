@@ -12,5 +12,4 @@ use Structr\Tree\Base\Node;
 
 class AnyNode extends Node
 {
-
 }
