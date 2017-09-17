@@ -55,7 +55,7 @@ abstract class NumberNode extends ScalarNode
 
     /**
      * The value of this node is expected to be greater than a fixed value
-     * 
+     *
      * @param number $value
      * @return \Structr\Tree\Base\NumberNode
      */
@@ -84,7 +84,7 @@ abstract class NumberNode extends ScalarNode
 
     /**
      * The value of this node is expected to be less than a fixed value
-     * 
+     *
      * @param number $value
      * @return \Structr\Tree\Base\NumberNode
      */
@@ -98,7 +98,7 @@ abstract class NumberNode extends ScalarNode
     /**
      * The value of this node is expected to be less than or equal to a
      * fixed value
-     * 
+     *
      * @param number $value
      * @param bool $clamp
      * @return \Structr\Tree\Base\NumberNode
@@ -163,7 +163,7 @@ abstract class NumberNode extends ScalarNode
     
     /**
      * Check that the value is within bounds (greater than or equal)
-     * 
+     *
      * @param number $value The value to check
      * @return number
      * @throws Structr\Exception
@@ -182,7 +182,7 @@ abstract class NumberNode extends ScalarNode
     
     /**
      * Check that the value is within bounds (less than or equal)
-     * 
+     *
      * @param number $value The value to check
      * @return number
      * @throws Structr\Exception
@@ -191,7 +191,7 @@ abstract class NumberNode extends ScalarNode
     {
         if ($this->_lte) {
             if ($value > $this->_lte && !$this->_clampLte) {
-               $this->tooHigh($value, $this->_lte);
+                $this->tooHigh($value, $this->_lte);
             }
             $value = min($this->_lte, $value);
         }
@@ -201,7 +201,7 @@ abstract class NumberNode extends ScalarNode
     
     /**
      * Check that the value is within bounds (greater than)
-     * 
+     *
      * @param number $value The value to check
      * @throws Structr\Exception
      */
@@ -214,7 +214,7 @@ abstract class NumberNode extends ScalarNode
     
     /**
      * Check that the value is within bounds (less than)
-     * 
+     *
      * @param number $value The value to check
      * @throws Structr\Exception
      */
@@ -227,12 +227,12 @@ abstract class NumberNode extends ScalarNode
     
     /**
      * Error: the value is too high
-     * 
+     *
      * @throws Structr\Exception
      */
     protected function tooHigh($value, $max)
     {
-         throw new Exception(sprintf(
+        throw new Exception(sprintf(
             "Value '%s' is higher than allowed (%f)",
             $value,
             $max
@@ -241,7 +241,7 @@ abstract class NumberNode extends ScalarNode
     
     /**
      * Error: the value is too low
-     * 
+     *
      * @throws Structr\Exception
      */
     protected function tooLow($value, $min)

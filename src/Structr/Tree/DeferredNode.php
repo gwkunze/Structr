@@ -21,8 +21,7 @@ class DeferredNode extends Node
      */
     public function __construct($callable)
     {
-        if (!is_callable($callable))
-        {
+        if (!is_callable($callable)) {
             throw new Exception('Argument to DeferredNode::__construct() must be callable');
         }
         $this->_callable = $callable;
@@ -32,8 +31,7 @@ class DeferredNode extends Node
     {
         $value = parent::_walk_value($value);
         $node = call_user_func($this->_callable);
-        if (!($node instanceof Node))
-        {
+        if (!($node instanceof Node)) {
             throw new Exception(
                 'Callable supplied to is() must return an instance of \Structr\Tree\Base\Node'
             );

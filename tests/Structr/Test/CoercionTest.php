@@ -28,7 +28,8 @@ class CoercionTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider nullData
      */
-    public function testNull($var) {
+    public function testNull($var)
+    {
         $value = Structr::ize($var)
                  ->isNull()->coerce()
                  ->run();
@@ -56,7 +57,8 @@ class CoercionTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider integerData
      */
-    public function testInteger($expected, $input) {
+    public function testInteger($expected, $input)
+    {
         $value = Structr::ize($input)
                  ->isInteger()->coerce()
                  ->run();
@@ -64,7 +66,8 @@ class CoercionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, $value);
     }
 
-    public function testIntegerStrict() {
+    public function testIntegerStrict()
+    {
         $this->assertSame(123, Structr::ize("123")
                                    ->isInteger()->coerce(true)
                                    ->run());
@@ -96,7 +99,8 @@ class CoercionTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider floatData
      */
-    public function testFloat($expected, $input) {
+    public function testFloat($expected, $input)
+    {
         $value = Structr::ize($input)
                  ->isFloat()->coerce()
                  ->run();
@@ -124,7 +128,8 @@ class CoercionTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider booleanData
      */
-    public function testBoolean($expected, $input) {
+    public function testBoolean($expected, $input)
+    {
         $value = Structr::ize($input)
                  ->isBoolean()->coerce()
                  ->run();
@@ -153,7 +158,8 @@ class CoercionTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider stringData
      */
-    public function testString($expected, $input) {
+    public function testString($expected, $input)
+    {
         $value = Structr::ize($input)
                  ->isString()->coerce()
                  ->run();
@@ -164,5 +170,4 @@ class CoercionTest extends \PHPUnit_Framework_TestCase
             "coerce (".gettype($input).") -> string"
         );
     }
-
 }

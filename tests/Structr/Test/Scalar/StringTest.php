@@ -12,8 +12,8 @@ use Structr\Structr;
 
 class StringTest extends \PHPUnit_Framework_TestCase
 {
-
-    public function testRegexp() {
+    public function testRegexp()
+    {
         $string = "1991-08-06";
 
         $expected = $string;
@@ -27,7 +27,8 @@ class StringTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, $result);
     }
 
-    public function testRegexpFail() {
+    public function testRegexpFail()
+    {
         $this->setExpectedException("\\Structr\\Exception");
 
         $string = "1991/08/06";
@@ -39,7 +40,8 @@ class StringTest extends \PHPUnit_Framework_TestCase
             ->run();
     }
 
-    public function testEnum() {
+    public function testEnum()
+    {
         $string = "foo";
 
         $enum = array("foo", "bar", "baz");
@@ -55,7 +57,8 @@ class StringTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, $result);
     }
 
-    public function testEnumFail() {
+    public function testEnumFail()
+    {
         $this->setExpectedException("\\Structr\\Exception");
         $string = "foobar";
 
@@ -67,6 +70,88 @@ class StringTest extends \PHPUnit_Framework_TestCase
             ->isString()
                 ->enum($enum)
             ->end()
+            ->run();
+    }
+
+    public function testMaxLength()
+    {
+        $string = 'foo';
+
+        $result = Structr::ize($string)
+            ->isString()->maxLength(4)->end()
+            ->run();
+
+        $this->assertSame($result, $string);
+    }
+
+    /**
+     * @expectedException \Structr\Exception
+     */
+    public function testMaxLengthFail()
+    {
+        $string = 'foobar';
+
+        Structr::ize($string)
+            ->isString()->maxLength(4)->end()
+            ->run();
+    }
+
+    public function testMinLength()
+    {
+        $string = 'foobar';
+
+        $result = Structr::ize($string)
+            ->isString()->minLength(4)->end()
+            ->run();
+
+        $this->assertSame($result, $string);
+    }
+
+    /**
+     * @expectedException \Structr\Exception
+     */
+    public function testMinLengthFail()
+    {
+        $string = 'foo';
+
+        Structr::ize($string)
+            ->isString()->minLength(4)->end()
+            ->run();
+    }
+
+
+    public function testLength()
+    {
+        $string = 'foobar';
+
+        $result = Structr::ize($string)
+            ->isString()->length(6)->end()
+            ->run();
+
+        $this->assertSame($result, $string);
+    }
+
+    /**
+     * @expectedException \Structr\Exception
+     */
+    public function testLengthFailToShort()
+    {
+        $string = 'foo';
+
+        Structr::ize($string)
+            ->isString()->length(6)->end()
+            ->run();
+    }
+
+    /**
+     * @expectedException \Structr\Exception
+     */
+    public function testLengthFailToLong()
+    {
+        $string = 'foobarbaz';
+
+        Structr::ize($string)
+            ->isString()->length(6)->end()
             ->run();
     }
 }

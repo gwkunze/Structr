@@ -12,8 +12,8 @@ use Structr\Structr;
 
 class MapTest extends \PHPUnit_Framework_TestCase
 {
-
-    public function testSimpleMap() {
+    public function testSimpleMap()
+    {
         $array = array(
             "id" => "35",
             "baz" => "3.1416",
@@ -39,7 +39,8 @@ class MapTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, $result);
     }
 
-    public function testSimpleMapFail() {
+    public function testSimpleMapFail()
+    {
         $this->setExpectedException("\\Structr\\Exception");
 
         $array = array(
@@ -58,7 +59,8 @@ class MapTest extends \PHPUnit_Framework_TestCase
             ->run();
     }
 
-    public function testStrictMap() {
+    public function testStrictMap()
+    {
         $array = array(
             "id" => 12,
             "name" => "foo"
@@ -81,7 +83,8 @@ class MapTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, $result);
     }
 
-    public function testStrictMapFail() {
+    public function testStrictMapFail()
+    {
         $this->setExpectedException("\\Structr\\Exception");
 
         $array = array(
@@ -103,7 +106,8 @@ class MapTest extends \PHPUnit_Framework_TestCase
             ->run();
     }
 
-    public function testMapDefault() {
+    public function testMapDefault()
+    {
         $array = array(
             "id" => 123,
             "foo" => "bar"
@@ -133,7 +137,8 @@ class MapTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, $result);
     }
 
-    public function testMapKeyMatch() {
+    public function testMapKeyMatch()
+    {
         $array = array(
             "name" => "John",
             "telephone-home" => "(555)0123",
@@ -156,7 +161,8 @@ class MapTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, $result);
     }
 
-    public function testMapFunctionMatch() {
+    public function testMapFunctionMatch()
+    {
         $array = array(
             "a" => 0,
             "b" => 1,
@@ -182,7 +188,9 @@ class MapTest extends \PHPUnit_Framework_TestCase
 
         $result = Structr::ize($array)
             ->isMap()
-                ->keyMatch(function($key) { return !in_array($key, array('a', 'e', 'i', 'u', 'o')); })
+                ->keyMatch(function ($key) {
+                    return !in_array($key, array('a', 'e', 'i', 'u', 'o'));
+                })
                     ->isAny()->end()
                 ->endKey()
             ->run();
@@ -190,7 +198,8 @@ class MapTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, $result);
     }
 
-    public function testOptionalKey() {
+    public function testOptionalKey()
+    {
         Structr::clearAll();
 
         Structr::define("foo")

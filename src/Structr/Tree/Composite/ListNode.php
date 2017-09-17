@@ -41,7 +41,7 @@ class ListNode extends Node
 
     /**
      * The list of this node is to have a minimum number of items
-     * 
+     *
      * @param int $size The minimum number of items expected
      * @return \Structr\Tree\Composite\ListNode This node
      */
@@ -54,7 +54,7 @@ class ListNode extends Node
 
     /**
      * The list of this node is to have a maximum number of items
-     * 
+     *
      * @param int $size The maximum number of items expected
      * @return \Structr\Tree\Composite\ListNode
      */
@@ -89,7 +89,7 @@ class ListNode extends Node
 
         $return = array();
         for ($i = 0; $i < $length; $i++) {
-            if(!isset($value[$i])) {
+            if (!isset($value[$i])) {
                 throw new Exception(sprintf(
                     "Invalid list, missing index '%d'. Might be a map.",
                     $i
@@ -102,7 +102,7 @@ class ListNode extends Node
     
     /**
      * Check if the length of the list is within bounds
-     * 
+     *
      * @param int $length Length of the list
      * @throws Structr\Exception
      */
